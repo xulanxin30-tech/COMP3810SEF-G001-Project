@@ -1,0 +1,125 @@
+/* Shared styles for auth pages (sign up / log in / dashboard) */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(15, 40, 80, 0.12);
+  padding: 32px;
+}
+
+.auth-card h1 {
+  font-size: 1.4rem;
+  color: #16324f;
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  color: #6b7a90;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card label {
+  font-size: 0.85rem;
+  color: #33465e;
+  margin: 10px 0 4px;
+}
+
+.auth-card .hint {
+  color: #8a97a8;
+  font-weight: normal;
+}
+
+.auth-card input {
+  border: 1px solid #c4d0dd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #2f6fb2;
+  box-shadow: 0 0 0 3px rgba(47, 111, 178, 0.15);
+}
+
+.auth-button {
+  margin-top: 18px;
+  background: #2f6fb2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 11px 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  background: #265c96;
+}
+
+.auth-errors {
+  background: #fdecec;
+  border: 1px solid #f2b8b5;
+  color: #a12622;
+  border-radius: 6px;
+  padding: 10px 12px 10px 28px;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.auth-info {
+  background: #eaf3ec;
+  border: 1px solid #bcd9c2;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.auth-switch {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #4a5b70;
+}
+
+.auth-switch a,
+.auth-card a {
+  color: #2f6fb2;
+}
+
+.auth-card p {
+  font-size: 0.88rem;
+  color: #4a5b70;
+  line-height: 1.5;
+}
+
+.auth-card code {
+  background: #eef2f6;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
