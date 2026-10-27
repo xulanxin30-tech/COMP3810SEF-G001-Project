@@ -22,8 +22,8 @@
     <form method="POST" action="/auth/login" novalidate>
       <input type="hidden" name="next" value="<%= next %>">
 
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" value="<%= values.email || '' %>" autocomplete="email" required>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" value="<%= values.username || '' %>" autocomplete="username" required>
 
       <label for="password">Password</label>
       <input id="password" name="password" type="password" autocomplete="current-password" required>

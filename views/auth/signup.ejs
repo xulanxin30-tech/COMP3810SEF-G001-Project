@@ -22,13 +22,13 @@
     <form method="POST" action="/auth/signup" novalidate>
       <input type="hidden" name="next" value="<%= typeof next !== 'undefined' ? next : '' %>">
 
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" value="<%= values.username || '' %>" autocomplete="username" required>
+
       <label for="name">Full name</label>
       <input id="name" name="name" type="text" value="<%= values.name || '' %>" autocomplete="name" required>
 
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" value="<%= values.email || '' %>" autocomplete="email" required>
-
-      <label for="password">Password <span class="hint">(min 8 characters)</span></label>
+      <label for="password">Password <span class="hint">(letters and numbers)</span></label>
       <input id="password" name="password" type="password" autocomplete="new-password" required>
 
       <button type="submit" class="auth-button">Sign up</button>

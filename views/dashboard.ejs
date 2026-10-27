@@ -13,12 +13,11 @@
 
     <% if (currentUser) { %>
       <div class="auth-info">
-        <p>Logged in as <strong><%= currentUser.name %></strong> (<%= currentUser.role %>)</p>
-        <p>Email: <%= currentUser.email %></p>
+        <p>Logged in as <strong><%= currentUser.name %></strong> (<%= currentUser.username %>)</p>
       </div>
     <% } %>
 
-    <p>Unauthenticated visitors never see this page: they are redirected to <code>/auth/login</code> by <code>requireAuth</code> middleware.</p>
+    <p>Unauthenticated visitors never see this page: they are redirected to <code>/auth/login</code> by the <code>requireAuth</code> middleware.</p>
 
     <form method="POST" action="/auth/logout">
       <button type="submit" class="auth-button">Log out</button>

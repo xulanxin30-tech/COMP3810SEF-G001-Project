@@ -1,10 +1,9 @@
 // T10 - Session middleware helpers
-// T12 - Access control for CRUD pages (intercept unauthenticated visitors)
+// T12 - Access control for CRUD pages (redirect unauthenticated visitors)
 //
 // Usage:
-//   app.use(attachCurrentUser)                 // global: views get res.locals.currentUser
-//   app.use('/books', requireAuth, booksRouter) // protect a CRUD page
-//   app.use('/users', requireAuth, requireRole('admin'), usersRouter)
+//   app.use(attachCurrentUser)                   // global: views get res.locals.currentUser
+//   app.use('/books', requireAuth, booksRouter)  // protect a CRUD page
 
 function getSessionUser(req) {
   return req.session && req.session.user ? req.session.user : null
@@ -36,27 +35,10 @@ function requireGuest(req, res, next) {
   return next()
 }
 
-// Restrict a route to a specific role, e.g. requireRole('admin') for librarian-only pages
-function requireRole(role) {
-  return function roleCheck(req, res, next) {
-    const user = getSessionUser(req)
-    if (!user) return requireAuth(req, res, next)
-
-    if (user.role !== role) {
-      if (req.path.startsWith('/api') || wantsJson(req)) {
-        return res.status(403).json({ error: 'Forbidden: insufficient permissions' })
-      }
-      return res.status(403).send('403 Forbidden: you do not have permission to access this page.')
-    }
-    return next()
-  }
-}
-
 module.exports = {
   getSessionUser,
   wantsJson,
   attachCurrentUser,
   requireAuth,
-  requireGuest,
-  requireRole
+  requireGuest
 }

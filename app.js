@@ -21,6 +21,8 @@ app.use('/auth', authRouter)
 // T12: CRUD-style pages must be mounted with requireAuth, e.g.:
 //   app.use('/books', requireAuth, booksRouter)
 app.use('/dashboard', requireAuth, dashboardRouter)
+// Teammates protect their own CRUD routers the same way; the access-control
+// middleware lives in middleware/auth.js (requireAuth / requireGuest).
 app.use(notFoundHandler)
 app.use(errorHandler)
 
