@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - G001 Library</title>
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <main class="auth-card">
+    <h1>Dashboard</h1>
+    <p class="auth-subtitle">Protected page - access control demo</p>
+
+    <% if (currentUser) { %>
+      <div class="auth-info">
+        <p>Logged in as <strong><%= currentUser.name %></strong> (<%= currentUser.role %>)</p>
+        <p>Email: <%= currentUser.email %></p>
+      </div>
+    <% } %>
+
+    <p>Unauthenticated visitors never see this page: they are redirected to <code>/auth/login</code> by <code>requireAuth</code> middleware.</p>
+
+    <form method="POST" action="/auth/logout">
+      <button type="submit" class="auth-button">Log out</button>
+    </form>
+
+    <p class="auth-switch"><a href="/">Back to home</a></p>
+  </main>
+</body>
+</html>
