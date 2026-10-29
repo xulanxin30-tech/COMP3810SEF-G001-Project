@@ -1,5 +1,4 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const { User } = require('../models/schema')
 const { requireGuest, wantsJson, getSessionUser } = require('../middleware/auth')
 
@@ -50,11 +49,6 @@ router.post('/signup', requireGuest, async (req, res, next) => {
   }
 
   try {
-    if (mongoose.connection.readyState !== 1) {
-      const msg = 'Database is not available. Start MongoDB and restart the server.'
-      if (wantsJson(req)) return res.status(503).json({ errors: [msg] })
-      return res.status(503).render('auth/signup', { errors: [msg], values: { username, name } })
-    }
     const existing = await User.findOne({ username })
     if (existing) {
       const msg = 'This username is already taken.'
@@ -89,11 +83,6 @@ router.post('/login', requireGuest, async (req, res, next) => {
   const nextUrl = safeNext(req.body.next || req.query.next)
 
   try {
-    if (mongoose.connection.readyState !== 1) {
-      const msg = 'Database is not available. Start MongoDB and restart the server.'
-      if (wantsJson(req)) return res.status(503).json({ errors: [msg] })
-      return res.status(503).render('auth/login', { errors: [msg], values: { username }, next: nextUrl })
-    }
     const user = await User.findOne({ username })
     // Plain-text comparison, consistent with the course schema and seed data.
     const valid = user && user.password === password
