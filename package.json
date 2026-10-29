@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project#readme",
   "dependencies": {
-    "bcrypt": "^6.0.0",
     "cookie-session": "^2.1.1",
     "dotenv": "^18.0.9",
     "ejs": "^7.0.2",
