@@ -146,3 +146,12 @@ Click the pencil icon at the top-right of this file on GitHub to edit it in the 
 Recommended order: Course Information → Team Members → Project Overview → Tech Stack → Timeline.
 ===========================================================
 -->
+## API Testing (T26)
+# GET all items
+curl http://localhost:3000/api/items
+# POST create a new item
+curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'
+# PUT update item with id=1
+curl -X PUT http://localhost:3000/api/items/1 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'
+# DELETE item with id=1
+curl -X DELETE http://localhost:3000/api/items/1
