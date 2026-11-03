@@ -19,25 +19,25 @@
 
 ---
 
-## Project Overview
+## 👁️‍🗨️Project Overview
 We are building a server-side web application for a student library book management system using Express.js, MongoDB, and EJS. It matters because it demonstrates practical server-side technologies, authentication, and RESTful API design. The system is designed for university students (as borrowers) and librarians (as administrators).
 
-### Objectives
+➡️ **Objectives**
 
 - [ ] Implement core CRUD operations for book records and borrowing management.
 - [ ] Develop cookie-session based authentication with Admin and Student roles.
 - [ ] Deploy the application on an Ubuntu virtual machine and provide RESTful APIs.
 
-### Scope
+➡️ **Scope**
 
-**In scope**
+**In scope:**
 - User authentication (cookie-session) for Admin (Librarian) and Student roles.
 - Admin features: Book CRUD operations, viewing borrowing records, processing returns.
 - Student features: Browsing books, borrowing, returning/renewing, and reserving out-of-stock books.
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
 - Deployment and demonstration on an Ubuntu virtual machine.
 
-**Out of scope**
+**Out of scope:**
 - Complex UI/UX designs or frontend frameworks (e.g., React/Vue).
 - Advanced library features like fines/payments or automated email notifications.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
@@ -51,8 +51,8 @@ We are building a server-side web application for a student library book managem
 | --- | --- | --- | --- | --- |
 | 1 | XU Lanxin | 13744757 | Team Lead | Scaffolding, routing, session setup, integration |
 | 2 | Chi Xuanyi | 13766798 | Developer | Login & sign-up, session, access-control middleware |
-| 3 | Cao Fei | 13755803 | Developer | Mongoose schemas, seed data |
-| 4 | Fong Chun Hung | 14282138 | Documentation | README, local launch check, zip packaging, demo PPT |
+| 3 | Cao Fei | 13755803 | Developer | README,Mongoose schemas, seed data |
+| 4 | Fong Chun Hung | 14282138 | Documentation | local launch check, zip packaging, demo PPT |
 | 5 | Aw Chun Yin / Wong Ching Fung | 14282568 / 13886514 | QA / Testing | EJS templates, login page, CRUD pages & styling; API routes, HTTP methods, curl test commands |
 
 ---
@@ -121,14 +121,14 @@ COMP3810SEF-G001-Project/
 
 ---
 
-## License
+## 👂❗❗❗❗License❗❗❗❗
 
 This project is a group assignment for COMP3810SEF course for academic evaluation only.
 All code within this project is for educational purposes. Redistribution, commercial usage is prohibited without group members’ permission.
 
 ---
 
-## Acknowledgements
+## 💙Acknowledgements
 
 We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code.
 We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation.
@@ -146,12 +146,19 @@ Click the pencil icon at the top-right of this file on GitHub to edit it in the 
 Recommended order: Course Information → Team Members → Project Overview → Tech Stack → Timeline.
 ===========================================================
 -->
-## API Testing (T26)
-# GET all items
+## ⏰API Testing (T26)
+- ➡️ GET all items
+
 curl http://localhost:3000/api/items
-# POST create a new item
+
+- ➡️ POST create a new item
+
 curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'
-# PUT update item with id=1
+
+- ➡️ PUT update item with id=1
+
 curl -X PUT http://localhost:3000/api/items/1 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'
-# DELETE item with id=1
+
+- ➡️ DELETE item with id=1
+
 curl -X DELETE http://localhost:3000/api/items/1
