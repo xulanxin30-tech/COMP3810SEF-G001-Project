@@ -1,6 +1,7 @@
 const express = require('express')
 const { User } = require('../models/schema')
 const { requireGuest, wantsJson, getSessionUser } = require('../middleware/auth')
+const { facebookConfigured } = require('./oauth')
 
 const router = express.Router()
 
@@ -73,7 +74,15 @@ router.post('/signup', requireGuest, async (req, res, next) => {
 
 // T09 - Login page
 router.get('/login', requireGuest, (req, res) => {
-  res.render('auth/login', { errors: [], values: {}, next: safeNext(req.query.next) })
+  const errors = req.query.oauth === 'unconfigured'
+    ? ['Facebook login is not configured. Set FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in .env to enable it.']
+    : []
+  res.render('auth/login', {
+    errors,
+    values: {},
+    next: safeNext(req.query.next),
+    facebookConfigured
+  })
 })
 
 // T09 - Login API

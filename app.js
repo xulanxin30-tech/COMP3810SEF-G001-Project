@@ -4,6 +4,7 @@ const sessionConfig = require('./config/session')
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth')
 const dashboardRouter = require('./routes/dashboard')
+const oauthRouter = require('./routes/oauth')
 const { attachCurrentUser, requireAuth } = require('./middleware/auth')
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler')
 
@@ -21,6 +22,8 @@ app.use('/auth', authRouter)
 // T12: CRUD-style pages must be mounted with requireAuth, e.g.:
 //   app.use('/books', requireAuth, booksRouter)
 app.use('/dashboard', requireAuth, dashboardRouter)
+// L9 OAuth (Facebook) login option — scoped to its own routes inside routes/oauth.js
+app.use(oauthRouter)
 // Teammates protect their own CRUD routers the same way; the access-control
 // middleware lives in middleware/auth.js (requireAuth / requireGuest).
 app.use(notFoundHandler)

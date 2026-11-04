@@ -100,6 +100,56 @@ body {
   margin-bottom: 12px;
 }
 
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #8a97a8;
+  font-size: 0.8rem;
+  margin: 20px 0 4px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #d9e1ea;
+}
+
+.auth-divider span {
+  padding: 0 12px;
+}
+
+.auth-button-fb {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #1877f2;
+}
+
+.auth-button-fb:hover {
+  background: #166fe5;
+}
+
+.auth-profile {
+  list-style: none;
+  background: #eef4fb;
+  border: 1px solid #cfe0f2;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  color: #27496b;
+  margin-bottom: 8px;
+}
+
+.auth-profile li {
+  padding: 3px 0;
+}
+
+.auth-profile strong {
+  color: #16324f;
+}
+
 .auth-switch {
   margin-top: 16px;
   font-size: 0.85rem;

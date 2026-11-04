@@ -31,6 +31,15 @@
       <button type="submit" class="auth-button">Log in</button>
     </form>
 
+    <div class="auth-divider"><span>or</span></div>
+
+    <% if (facebookConfigured) { %>
+      <a class="auth-button auth-button-fb" href="/auth/facebook">Log in with Facebook</a>
+    <% } else { %>
+      <p class="auth-info">Facebook login (OAuth 2.0 / Passport, Lecture 9) is available. Set
+        <code>FACEBOOK_APP_ID</code> and <code>FACEBOOK_APP_SECRET</code> in <code>.env</code> to enable it.</p>
+    <% } %>
+
     <p class="auth-switch">No account yet? <a href="/auth/signup">Sign up</a></p>
   </main>
 </body>
