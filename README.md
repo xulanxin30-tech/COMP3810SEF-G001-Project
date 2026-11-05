@@ -121,12 +121,24 @@ Branch Naming Convention:
 | Bug fix | `fix/<name>` | `fix/session-timeout` |
 | Documentation | `docs/<name>` | `docs/update-readme` |
 
+
+
+
 ## 🚀Project file intro:
 ### ➡️server.js:
-### ➡️package.json:
+(click here to ckeck file)[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
+
+### ➡️package.json:.js):
+(click here to ckeck file)[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
+
 ### ➡️public:
+(click here to ckeck file)[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+
 ### ➡️views:
+(click here to ckeck file)[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
+
 ### ➡️models:
+(click here to ckeck file)[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
 
 
 ## 🧪Operation guides:
