@@ -119,3 +119,55 @@ body {
 .auth-link a:hover {
     text-decoration: underline;
 }
+
+.auth-error {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-radius: 5px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    list-style: none;
+}
+
+.auth-divider {
+    text-align: center;
+    margin: 22px 0;
+    position: relative;
+}
+
+.auth-divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #ddd;
+}
+
+.auth-divider span {
+    position: relative;
+    background: #fff;
+    padding: 0 12px;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.auth-fb {
+    background-color: #1877f2;
+    text-align: center;
+}
+
+.auth-fb:hover {
+    background-color: #166fe5;
+}
+
+.auth-note {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #6b7280;
+    background: #f3f4f6;
+    border-radius: 5px;
+    padding: 10px;
+}

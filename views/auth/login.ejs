@@ -14,6 +14,12 @@
         <h1>Login</h1>
         <p>Please enter your username and password.</p>
 
+        <% if (typeof errors !== 'undefined' && errors.length) { %>
+            <ul class="auth-error">
+                <% errors.forEach(function (msg) { %><li><%= msg %></li><% }) %>
+            </ul>
+        <% } %>
+
         <form action="/auth/login" method="POST">
 
             <div class="form-group">
@@ -43,6 +49,12 @@
             <button type="submit" class="button">Login</button>
 
         </form>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <% if (facebookConfigured) { %>
+            <a class="button auth-fb" href="/auth/facebook">Log in with Facebook</a>
+        <% } %>
 
         <p class="auth-link">
             Don't have an account?
