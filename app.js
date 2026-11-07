@@ -14,6 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(sessionConfig)
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null
+    next()
+})
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
 app.use('/api', apiRouter)
