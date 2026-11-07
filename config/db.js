@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-const DEFAULT_URI = 'mongodb://127.0.0.1:27017/comp3810sef_g001'
+// Default MongoDB connection string. Left empty on purpose — do NOT commit a
+// personal/driver link. Set MONGODB_URI in your own .env instead.
+const DEFAULT_URI = ''
 
 async function connectDB() {
   const uri = process.env.MONGODB_URI || DEFAULT_URI
