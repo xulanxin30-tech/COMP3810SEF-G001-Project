@@ -17,9 +17,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(sessionConfig)
 app.use(attachCurrentUser)
-// Expose the logged-in user to all EJS templates (used by the shared navbar)
+// Expose shared values to all EJS templates: the logged-in user (navbar) and
+// the OAuth availability flag (login page button). Injecting here means every
+// render path — including the POST /auth/login failure re-render — has it.
 app.use((req, res, next) => {
   res.locals.user = (req.session && req.session.user) || null
+  res.locals.facebookConfigured = oauthRouter.facebookConfigured
   next()
 })
 app.use('/', indexRouter)
