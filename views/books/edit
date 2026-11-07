@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book - Library Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/navbar') %>
+
+    <main class="container">
+        <h1>Edit Book</h1>
+        <p>Update the book information below.</p>
+
+        <form action="/books/<%= book._id %>/edit" method="POST">
+
+            <div class="form-group">
+                <label for="title">Book Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="<%= book.title %>"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input
+                    type="text"
+                    id="author"
+                    name="author"
+                    value="<%= book.author %>"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input
+                    type="text"
+                    id="category"
+                    name="category"
+                    value="<%= book.category || '' %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <input
+                    type="text"
+                    id="publisher"
+                    name="publisher"
+                    value="<%= book.publisher || '' %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="publishYear">Publish Year</label>
+                <input
+                    type="number"
+                    id="publishYear"
+                    name="publishYear"
+                    value="<%= book.publishYear || '' %>"
+                >
+            </div>
+
+            <button type="submit" class="button">Save Changes</button>
+            <a href="/books" class="cancel-link">Cancel</a>
+
+        </form>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
