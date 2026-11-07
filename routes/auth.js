@@ -5,21 +5,6 @@ const { facebookConfigured } = require('./oauth')
 
 const router = express.Router()
 
-// T10 helper: only allow a same-site relative path as the post-login redirect
-// target. Blocks open-redirect tricks such as "//evil.com" or "/\evil.com"
-// (browsers normalise a backslash to a forward slash).
-function safeNext(value) {
-  if (
-    typeof value === 'string' &&
-    value.startsWith('/') &&
-    !value.startsWith('//') &&
-    !value.includes('\\') &&
-    !value.includes(':')
-  ) {
-    return value
-  }
-  return '/dashboard'
-}
 
 // T08 - Sign-up page
 router.get('/signup', requireGuest, (req, res) => {
@@ -31,7 +16,7 @@ router.post('/signup', requireGuest, async (req, res, next) => {
   const username = (req.body.username || '').trim().toLowerCase()
   const name = (req.body.name || '').trim()
   const password = req.body.password || ''
-  const nextUrl = safeNext(req.body.next)
+  const nextUrl = req.body.next || '/dashboard'
 
   const errors = []
   if (!/^[a-z0-9]+$/.test(username)) {
@@ -62,8 +47,8 @@ router.post('/signup', requireGuest, async (req, res, next) => {
     const user = new User({ username, name, password })
     await user.save()
 
-    // T10 - rebuild the session on sign-up (helps avoid session fixation)
-    req.session = { user: { username: user.username, name: user.name } }
+    // T10 - set the session user
+    req.session.user = { username: user.username, name: user.name }
 
     if (wantsJson(req)) return res.status(201).json({ user: req.session.user })
     return res.redirect(nextUrl)
@@ -80,7 +65,7 @@ router.get('/login', requireGuest, (req, res) => {
   res.render('auth/login', {
     errors,
     values: {},
-    next: safeNext(req.query.next),
+    next: req.query.next || '',
     facebookConfigured
   })
 })
@@ -89,7 +74,7 @@ router.get('/login', requireGuest, (req, res) => {
 router.post('/login', requireGuest, async (req, res, next) => {
   const username = (req.body.username || '').trim().toLowerCase()
   const password = req.body.password || ''
-  const nextUrl = safeNext(req.body.next || req.query.next)
+  const nextUrl = req.body.next || req.query.next || '/dashboard'
 
   try {
     const user = await User.findOne({ username })
@@ -102,8 +87,8 @@ router.post('/login', requireGuest, async (req, res, next) => {
       return res.status(401).render('auth/login', { errors: [msg], values: { username }, next: nextUrl })
     }
 
-    // T10 - rebuild the session on login (session fixation mitigation)
-    req.session = { user: { username: user.username, name: user.name } }
+    // T10 - set the session user
+    req.session.user = { username: user.username, name: user.name }
 
     if (wantsJson(req)) return res.json({ user: req.session.user })
     return res.redirect(nextUrl)
