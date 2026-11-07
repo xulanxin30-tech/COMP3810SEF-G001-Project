@@ -17,6 +17,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(sessionConfig)
 app.use(attachCurrentUser)
+// Expose the logged-in user to all EJS templates (used by the shared navbar)
+app.use((req, res, next) => {
+  res.locals.user = (req.session && req.session.user) || null
+  next()
+})
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
 // T12: CRUD-style pages must be mounted with requireAuth, e.g.:

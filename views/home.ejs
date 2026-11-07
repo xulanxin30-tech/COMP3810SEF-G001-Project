@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <main class="container">
+        <h1>Welcome to the <%= title %></h1>
+
+        <p>Manage books easily with our library system.</p>
+
+        <h2>Library Features</h2>
+
+        <% if (features.length > 0) { %>
+            <ul>
+                <% features.forEach(function(feature) { %>
+                    <li><%= feature %></li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No features available.</p>
+        <% } %>
+
+        <a href="/books" class="button">View Books</a>
+    </main>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

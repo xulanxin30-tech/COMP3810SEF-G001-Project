@@ -1,0 +1,16 @@
+<nav class="navbar">
+    <a class="brand" href="/">Library System</a>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/books">Books</a>
+
+        <% if (user) { %>
+            <span>Welcome, <%= user.name %></span>
+            <a href="/auth/logout">Logout</a>
+        <% } else { %>
+            <a href="/auth/login">Login</a>
+            <a href="/auth/signup">Sign Up</a>
+        <% } %>
+    </div>
+</nav>

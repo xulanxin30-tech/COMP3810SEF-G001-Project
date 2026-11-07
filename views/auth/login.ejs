@@ -1,46 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In - G001 Library</title>
-  <link rel="stylesheet" href="/css/auth.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Library Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <main class="auth-card">
-    <h1>Welcome back</h1>
-    <p class="auth-subtitle">Student Library Book Management System</p>
 
-    <% if (errors.length > 0) { %>
-      <ul class="auth-errors">
-        <% errors.forEach(function (err) { %>
-          <li><%= err %></li>
-        <% }) %>
-      </ul>
-    <% } %>
+    <%- include('../partials/navbar') %>
 
-    <form method="POST" action="/auth/login" novalidate>
-      <input type="hidden" name="next" value="<%= next %>">
+    <main class="auth-container">
+        <h1>Login</h1>
+        <p>Please enter your username and password.</p>
 
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" value="<%= values.username || '' %>" autocomplete="username" required>
+        <% if (typeof errors !== 'undefined' && errors.length) { %>
+            <ul class="auth-error">
+                <% errors.forEach(function (msg) { %><li><%= msg %></li><% }) %>
+            </ul>
+        <% } %>
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <form action="/auth/login" method="POST">
 
-      <button type="submit" class="auth-button">Log in</button>
-    </form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    pattern="[a-z0-9]+"
+                    title="Use lowercase letters and numbers only"
+                    required
+                >
+            </div>
 
-    <div class="auth-divider"><span>or</span></div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-    <% if (facebookConfigured) { %>
-      <a class="auth-button auth-button-fb" href="/auth/facebook">Log in with Facebook</a>
-    <% } else { %>
-      <p class="auth-info">Facebook login (OAuth 2.0 / Passport, Lecture 9) is available. Set
-        <code>FACEBOOK_APP_ID</code> and <code>FACEBOOK_APP_SECRET</code> in <code>.env</code> to enable it.</p>
-    <% } %>
+            <button type="submit" class="button">Login</button>
 
-    <p class="auth-switch">No account yet? <a href="/auth/signup">Sign up</a></p>
-  </main>
+        </form>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <% if (facebookConfigured) { %>
+            <a class="button auth-fb" href="/auth/facebook">Log in with Facebook</a>
+        <% } else { %>
+            <p class="auth-note">Facebook login (OAuth 2.0 / Passport, Lecture 9) is available. Set FACEBOOK_APP_ID and FACEBOOK_APP_SECRET in .env to enable it.</p>
+        <% } %>
+
+        <p class="auth-link">
+            Don't have an account?
+            <a href="/auth/signup">Sign Up</a>
+        </p>
+    </main>
+
+    <%- include('../partials/footer') %>
+
 </body>
 </html>
