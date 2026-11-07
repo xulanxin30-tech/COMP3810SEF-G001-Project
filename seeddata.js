@@ -1,8 +1,8 @@
 //if you want to run type npm run seed
 
 const mongoose = require('mongoose');
-const { User, Book } = require('./models/schema');
-mongoose.connect('mongodb://127.0.0.1:27017/comp3810sef_g001')
+const { User, Book } = require('./schema.js');
+mongoose.connect('***') //put your own mongoose driver here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 .then(() => {
   console.log(' MongoDB connected successfully');
   runTest();
