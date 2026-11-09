@@ -1,30 +1,8 @@
 
 const express = require('express')
 const router = express.Router()
+const { Book } = require('../models/schema')
 
-// Temporary book data for testing
-let books = [
-    {
-        _id: '1',
-        title: 'Harry Potter',
-        author: 'J.K. Rowling',
-        category: 'Fantasy',
-        publisher: 'Bloomsbury',
-        publishYear: 1997
-    },
-    {
-        _id: '2',
-        title: 'The Little Prince',
-        author: 'Antoine de Saint-Exupery',
-        category: 'Fiction',
-        publisher: 'Reynal & Hitchcock',
-        publishYear: 1943
-    }
-]
-
-let nextId = 3
-
-// Homepage
 router.get('/', (req, res) => {
     res.render('home', {
         title: 'Library Management System',
@@ -36,100 +14,119 @@ router.get('/', (req, res) => {
     })
 })
 
-// Health Check
 router.get('/health', (req, res) => {
     res.json({ status: 'ok' })
 })
 
-// READ: Display all books
-router.get('/books', (req, res) => {
-    res.render('books/list', {
-        books: books
-    })
+router.get('/books', async (req, res, next) => {
+    try {
+        const books = await Book.find()
+
+        res.render('books/list', {
+            books: books
+        })
+    } catch (error) {
+        next(error)
+    }
 })
 
-// CREATE: Display Add Book page
 router.get('/books/new', (req, res) => {
     res.render('books/create')
 })
 
-// CREATE: Add a new book
-router.post('/books', (req, res) => {
-    const newBook = {
-        _id: String(nextId++),
-        title: req.body.title,
-        author: req.body.author,
-        category: req.body.category,
-        publisher: req.body.publisher,
-        publishYear: req.body.publishYear
-            ? Number(req.body.publishYear)
-            : undefined
+router.post('/books', async (req, res, next) => {
+    try {
+        const newBook = new Book({
+            title: req.body.title,
+            author: req.body.author,
+            category: req.body.category,
+            publisher: req.body.publisher,
+            publishYear: req.body.publishYear
+                ? Number(req.body.publishYear)
+                : undefined
+        })
+
+        await newBook.save()
+
+        res.redirect('/books')
+    } catch (error) {
+        next(error)
     }
-
-    books.push(newBook)
-
-    res.redirect('/books')
 })
 
-// UPDATE: Display Edit Book page
-router.get('/books/:id/edit', (req, res) => {
-    const book = books.find(b => b._id === req.params.id)
+router.get('/books/:id/edit', async (req, res, next) => {
+    try {
+        const book = await Book.findById(req.params.id)
 
-    if (!book) {
-        return res.status(404).send('Book not found')
+        if (!book) {
+            return res.status(404).send('Book not found')
+        }
+
+        res.render('books/edit', {
+            book: book
+        })
+    } catch (error) {
+        next(error)
     }
-
-    res.render('books/edit', {
-        book: book
-    })
 })
 
-// UPDATE: Save edited book
-router.post('/books/:id/edit', (req, res) => {
-    const book = books.find(b => b._id === req.params.id)
+router.post('/books/:id/edit', async (req, res, next) => {
+    try {
+        const updatedBook = await Book.findByIdAndUpdate(
+            req.params.id,
+            {
+                title: req.body.title,
+                author: req.body.author,
+                category: req.body.category,
+                publisher: req.body.publisher,
+                publishYear: req.body.publishYear
+                    ? Number(req.body.publishYear)
+                    : undefined
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
 
-    if (!book) {
-        return res.status(404).send('Book not found')
+        if (!updatedBook) {
+            return res.status(404).send('Book not found')
+        }
+
+        res.redirect('/books')
+    } catch (error) {
+        next(error)
     }
-
-    book.title = req.body.title
-    book.author = req.body.author
-    book.category = req.body.category
-    book.publisher = req.body.publisher
-    book.publishYear = req.body.publishYear
-        ? Number(req.body.publishYear)
-        : undefined
-
-    res.redirect('/books')
 })
 
-// DELETE: Display confirmation page
-router.get('/books/:id/delete', (req, res) => {
-    const book = books.find(b => b._id === req.params.id)
+router.get('/books/:id/delete', async (req, res, next) => {
+    try {
+        const book = await Book.findById(req.params.id)
 
-    if (!book) {
-        return res.status(404).send('Book not found')
+        if (!book) {
+            return res.status(404).send('Book not found')
+        }
+
+        res.render('books/delete', {
+            book: book
+        })
+    } catch (error) {
+        next(error)
     }
-
-    res.render('books/delete', {
-        book: book
-    })
 })
 
-// DELETE: Remove a book
-router.post('/books/:id/delete', (req, res) => {
-    const bookIndex = books.findIndex(
-        b => b._id === req.params.id
-    )
+router.post('/books/:id/delete', async (req, res, next) => {
+    try {
+        const deletedBook = await Book.findByIdAndDelete(req.params.id)
 
-    if (bookIndex === -1) {
-        return res.status(404).send('Book not found')
+        if (!deletedBook) {
+            return res.status(404).send('Book not found')
+        }
+
+        res.redirect('/books')
+    } catch (error) {
+        next(error)
     }
-
-    books.splice(bookIndex, 1)
-
-    res.redirect('/books')
 })
 
 module.exports = router
-
