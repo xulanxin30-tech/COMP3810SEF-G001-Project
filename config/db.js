@@ -1,11 +1,17 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-// Default MongoDB connection string. Left empty on purpose — do NOT commit a
-// personal/driver link. Set MONGODB_URI in your own .env instead.
+// No personal MongoDB driver link is committed. Each member provides their own
+// via .env (see .env.example). This keeps the team's secret-scanning fix in
+// this module, so seeddata.js (owned by the team) stays untouched.
 const DEFAULT_URI = ''
 
 async function connectDB() {
   const uri = process.env.MONGODB_URI || DEFAULT_URI
+  if (!uri) {
+    console.error('Missing MONGODB_URI. Copy .env.example to .env and fill it in.')
+    return
+  }
   try {
     await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 10000
