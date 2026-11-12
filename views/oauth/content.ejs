@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content - G001 Library</title>
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <main class="auth-card">
+    <h1>Welcome, <%= user.name %></h1>
+    <p class="auth-subtitle">You are signed in with Facebook (OAuth 2.0 / Passport).</p>
+
+    <ul class="auth-profile">
+      <li><strong>ID:</strong> <%= user.id %></li>
+      <li><strong>Name:</strong> <%= user.name %></li>
+    </ul>
+
+    <a class="auth-button" href="/auth/facebook/logout">Log out</a>
+    <p class="auth-switch"><a href="/auth/login">Back to username / password login</a></p>
+  </main>
+</body>
+</html>
