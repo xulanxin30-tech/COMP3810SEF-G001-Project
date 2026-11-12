@@ -43,30 +43,31 @@ We are building a server-side web application for a student library book managem
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
 - Native mobile application development.
 
+### ➡️Business Features Overview:
 
+**Admin (Librarian)**
+1. Login and logout
+2. Book CRUD: Add new books, modify book info, delete book records
+3. View all student borrowing records
+4. Process student book returns (update Borrow record status to returned, restore available book stock)
 
+**Student**
+1. Login and logout
+2. Browse all books list
+3. Borrow available books
+4. View personal borrowings: display remaining return days, perform renewal
+5. Submit a reservation when book stock is unavailable
+6. View personal reservation records
 ## 🧑‍💻Team Members:
 
-| # | Name | Student ID | Role | Responsibilities |
-| --- | --- | --- | --- | --- |
-| 1 | XU Lanxin | 13744757 | Team Lead | Scaffolding, routing, session setup, integration |
-| 2 | Chi Xuanyi | 13766798 | Developer | Login & sign-up, session, access-control middleware |
-| 3 | Cao Fei | 13755803 | Developer | README,Mongoose schemas, seed data |
-| 4 | Fong Chun Hung | 14282138 | Documentation | local launch check, zip packaging, demo PPT |
-| 5 | Aw Chun Yin / Wong Ching Fung | 14282568 / 13886514 | QA / Testing | EJS templates, login page, CRUD pages & styling; API routes, HTTP methods, curl test commands |
-
-
-
-## Tech Stack:
-
-| Layer | Choice |
-| --- | --- |
-| Programming Language | JavaScript (Node.js) |
-| Framework / Libraries | Express, EJS, Mongoose |
-| Database | MongoDB |
-| Version Control | Git + GitHub |
-| Project Management | GitHub Projects |
-| Communication | WhatsApp |
+| # | Name | Student ID | Github Username | Role | Responsibilities |
+|---|---|---|---|---|---|
+| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead | Scaffolding, routing, session setup, integration |
+| 2 | Chi Xuanyi | 13766798 | [@Felix13877](https://github.com/Felix13877) | Developer | Login & sign-up, session, access-control middleware |
+| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | README,Mongoose schemas, seed data |
+| 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
+| 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
+| 6 | PW | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods, curl test commands❔|
 
 
 
@@ -83,21 +84,7 @@ COMP3810SEF-G001-Project/
 
 
 
-## 👨‍🎓Business Features Overview:
 
-### ➡️Admin (Librarian)
-1. Login and logout
-2. Book CRUD: Add new books, modify book info, delete book records
-3. View all student borrowing records
-4. Process student book returns (update Borrow record status to returned, restore available book stock)
-
-### ➡️Student
-1. Login and logout
-2. Browse all books list
-3. Borrow available books
-4. View personal borrowings: display remaining return days, perform renewal
-5. Submit a reservation when book stock is unavailable
-6. View personal reservation records
 
 
 
