@@ -45,19 +45,20 @@ We are building a server-side web application for a student library book managem
 
 ### ➡️Business Features Overview:
 
-**Admin (Librarian)**
+**Admin (Librarian)：**
 1. Login and logout
 2. Book CRUD: Add new books, modify book info, delete book records
 3. View all student borrowing records
 4. Process student book returns (update Borrow record status to returned, restore available book stock)
 
-**Student**
+**Student：**
 1. Login and logout
 2. Browse all books list
 3. Borrow available books
 4. View personal borrowings: display remaining return days, perform renewal
 5. Submit a reservation when book stock is unavailable
 6. View personal reservation records
+
 ## 🧑‍💻Team Members:
 
 | # | Name | Student ID | Github Username | Role | Responsibilities |
@@ -67,40 +68,17 @@ We are building a server-side web application for a student library book managem
 | 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | README,Mongoose schemas, seed data |
 | 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
-| 6 | PW | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods, curl test commands❔|
+| 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods, curl test commands❔|
 
 
-
-## Repository Structure:
-
-```
-COMP3810SEF-G001-Project/
-├── docs/               # Requirements, design docs, meeting minutes, final report
-├── src/                # Source code
-├── tests/              # Test cases and test scripts
-├── assets/             # Images, diagrams, screenshots
-└── README.md           # This file
-```
-
-
-
-
-
-
-
-
-## Development Workflow:
+### ➡️Development Workflow:
 
 1. Create a feature branch from `main` — naming convention: `feature/<short-name>`
 2. Commit with clear messages, e.g. `feat: add login validation`
 3. Open a Pull Request and request at least one teammate as reviewer
 4. Merge into `main` only after review approval
 
-
-
-
-
-Branch Naming Convention:
+**Branch Naming Convention:**
 
 | Type | Pattern | Example |
 | --- | --- | --- |
@@ -112,20 +90,21 @@ Branch Naming Convention:
 
 
 ## 🚀Project file intro:
-### ➡️server.js:
-(click here to ckeck file)[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
+### ➡️(click here to ckeck file)[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
 
-### ➡️package.json:.js):
-(click here to ckeck file)[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
 
-### ➡️public:
-(click here to ckeck file)[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+### ➡️(click here to ckeck file)[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
 
-### ➡️views:
-(click here to ckeck file)[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 
-### ➡️models:
-(click here to ckeck file)[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
+### ➡️(click here to ckeck file)[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+
+
+### ➡️(click here to ckeck file)[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
+
+
+### ➡️(click here to ckeck file)[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
+This models file defines two Mongoose schemas and models: User (for user accounts) and Book (for book records)
+
 
 
 ## 🧪Operation guides:
