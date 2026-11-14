@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - Library Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/navbar') %>
+
+    <main class="container">
+        <h1>Add New Book</h1>
+        <p>Enter the book information below.</p>
+
+        <form action="/books" method="POST">
+
+            <div class="form-group">
+                <label for="title">Book Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category">
+            </div>
+
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <input type="text" id="publisher" name="publisher">
+            </div>
+
+            <div class="form-group">
+                <label for="publishYear">Publish Year</label>
+                <input type="number" id="publishYear" name="publishYear">
+            </div>
+
+            <button type="submit" class="button">Add Book</button>
+            <a href="/books" class="cancel-link">Cancel</a>
+
+        </form>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
