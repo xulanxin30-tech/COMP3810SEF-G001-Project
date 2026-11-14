@@ -17,8 +17,6 @@
 | Instructor |Dr. LIU Alin Yalin  |
 
 
-
-
 ## 👁️‍🗨️Project Overview:
 We are building a server-side web application for a student library book management system using Express.js, MongoDB, and EJS. It matters because it demonstrates practical server-side technologies, authentication, and RESTful API design. The system is designed for university students (as borrowers) and librarians (as administrators).
 
@@ -31,7 +29,7 @@ We are building a server-side web application for a student library book managem
 ### ➡️Scope
 
 **In scope:**
-- User authentication (cookie-session) for Admin (Librarian) and Student roles.
+- User authentication (cookie-session) for Student roles.
 - Admin features: Book CRUD operations, viewing borrowing records, processing returns.
 - Student features: Browsing books, borrowing, returning/renewing, and reserving out-of-stock books.
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
@@ -44,12 +42,6 @@ We are building a server-side web application for a student library book managem
 - Native mobile application development.
 
 ### ➡️Business Features Overview:
-
-**Admin (Librarian)：**
-1. Login and logout
-2. Book CRUD: Add new books, modify book info, delete book records
-3. View all student borrowing records
-4. Process student book returns (update Borrow record status to returned, restore available book stock)
 
 **Student：**
 1. Login and logout
@@ -69,23 +61,6 @@ We are building a server-side web application for a student library book managem
 | 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
 | 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods, curl test commands❔|
-
-
-### ➡️Development Workflow:
-
-1. Create a feature branch from `main` — naming convention: `feature/<short-name>`
-2. Commit with clear messages, e.g. `feat: add login validation`
-3. Open a Pull Request and request at least one teammate as reviewer
-4. Merge into `main` only after review approval
-
-**Branch Naming Convention:**
-
-| Type | Pattern | Example |
-| --- | --- | --- |
-| Feature | `feature/<name>` | `feature/login-page` |
-| Bug fix | `fix/<name>` | `fix/session-timeout` |
-| Documentation | `docs/<name>` | `docs/update-readme` |
-
 
 
 
