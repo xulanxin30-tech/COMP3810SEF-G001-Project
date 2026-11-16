@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books - Library Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/navbar') %>
+
+    <main class="container">
+
+        <h1>Search Books</h1>
+        <p>Search books by different criteria.</p>
+
+        <form action="/books/search" method="GET" class="search-form">
+
+            <label for="type">Search By:</label>
+
+            <select name="type" id="type">
+                <option value="title" <%= searchType === 'title' ? 'selected' : '' %>>
+                    Book Title
+                </option>
+                <option value="author" <%= searchType === 'author' ? 'selected' : '' %>>
+                    Author
+                </option>
+                <option value="category" <%= searchType === 'category' ? 'selected' : '' %>>
+                    Category
+                </option>
+                <option value="publisher" <%= searchType === 'publisher' ? 'selected' : '' %>>
+                    Publisher
+                </option>
+                <option value="publishYear" <%= searchType === 'publishYear' ? 'selected' : '' %>>
+                    Publish Year
+                </option>
+            </select>
+
+            <input
+                type="text"
+                name="q"
+                value="<%= searchText %>"
+                placeholder="Enter search keyword"
+                required
+            >
+
+            <button type="submit" class="button">Search</button>
+
+            <a href="/books/search" class="button">Clear</a>
+
+        </form>
+
+        <h2>Search Results</h2>
+
+        <% if (books.length > 0) { %>
+
+            <p>Found <%= books.length %> book(s).</p>
+
+            <table class="book-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Publisher</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% books.forEach(function(book) { %>
+                        <tr>
+                            <td><%= book.title %></td>
+                            <td><%= book.author %></td>
+                            <td><%= book.category || '-' %></td>
+                            <td><%= book.publisher || '-' %></td>
+                            <td><%= book.publishYear || '-' %></td>
+                            <td class="book-actions">
+                                <a href="/books/<%= book._id %>/edit">Edit</a>
+                                <a href="/books/<%= book._id %>/delete">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+        <% } else { %>
+
+            <p>No books found. Please try another search.</p>
+
+        <% } %>
+
+        <p><a href="/books">Back to Book List</a></p>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

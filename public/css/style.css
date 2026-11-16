@@ -120,6 +120,94 @@ body {
     text-decoration: underline;
 }
 
+
+.book-table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.book-table th,
+.book-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.book-table th {
+    background-color: #243447;
+    color: white;
+}
+
+.book-table tr:hover {
+    background-color: #f4f6f9;
+}
+
+.book-actions a {
+    margin-right: 10px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.book-actions a:hover {
+    text-decoration: underline;
+}
+
+.container .form-group {
+    margin-bottom: 20px;
+}
+
+.container .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.container .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.container .form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.cancel-link {
+    margin-left: 12px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+
+.delete-details {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f4f6f9;
+    border-radius: 5px;
+}
+
+.delete-button {
+    padding: 10px 18px;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.delete-button:hover {
+    background-color: #b91c1c;
+}
+
 .auth-error {
     color: #b91c1c;
     background-color: #fee2e2;
