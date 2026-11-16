@@ -65,25 +65,58 @@ We are building a server-side web application for a student library book managem
 
 
 ## 🚀Project file intro:
-### ➡️(click here to ckeck file)[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
+### ➡️[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
 
 
-### ➡️(click here to ckeck file)[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
+### ➡️[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
 
 
-### ➡️(click here to ckeck file)[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+### ➡️[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
 
 
-### ➡️(click here to ckeck file)[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
+<details>
+<summary>▫️ auth.css</summary>
+This is a CSS file (static file) that makes login, sign-up and user pages look nice.
+It makes a white box in the middle of the screen for the form.
+It styles text boxes, labels and a blue submit button.
+It adds red boxes for error messages and green boxes for tips.
+It has a dividing line and a Facebook login button.
+It also styles links to switch between login and sign up.
+</details>
+
+<details>
+<summary>▫️ style.css</summary>
+This is a CSS static file to style a simple book website.
+It makes a top navigation bar with the site name and links.
+It has a white box layout for main page content and login/signup forms.
+It styles input boxes, blue buttons, and a red delete button.
+It makes a table to show books, with links to edit or delete them.
+It adds red warning boxes for login errors, and a Facebook login button.
+It sets hover effects: links and buttons change colour or show underlines when you move your mouse over them.
+It also has a simple footer and dividing lines for the login page.
+</details>
+
+</details>
+
+### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 
 
-### ➡️(click here to ckeck file)[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
-This models file defines two Mongoose schemas and models: User (for user accounts) and Book (for book records)
+### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
+
+
+<details>
+<summary>▫️ schema.js</summary>
+This models file defines two Mongoose schemas and models: User (for user accounts) and Book (for book records).
+</details>
+
+</details>
 
 
 
 ## 🧪Operation guides:
 ### ➡️Use of Login/Logout pages:
+
+
 ### ➡️Use of CRUD web pages:
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
