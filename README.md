@@ -123,6 +123,52 @@ This is a CSS static file to style a simple book website.
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
+<summary>▫️delete.ejs</summary>
+This is the confirmation page for deleting a book.
+  
+- Reuses the shared navbar and footer.
+- Shows the book’s title, author and category for confirmation.
+- Submits a POST request to /books/<%= book._id %>/delete to remove the book.
+- Includes a Confirm Delete button and a cancel link to return to the book list page /books.
+</details>
+
+<details>
+<summary>▫️edit.ejs</summary>
+This page is used to edit existing book information.
+  
+- Reuses the shared navbar and footer.
+- The form is pre-filled with the current book data.
+- Fields:1. Book Title (required) 2. Author (required) 3. Category 4. Publisher 5. Publish Year
+- Submits updated data via POST to /books/<%= book._id %>/edit.
+- Has a Save Changes button and a cancel link to go back to the book list /books.
+</details>
+
+<details>
+<summary>▫️list.ejs</summary>
+This page displays all books in the library system.
+  
+- Reuses the shared navbar and footer.
+- Provides two buttons: Add New Book (/books/new) and Search Books (/books/search).
+- Shows book information in a table: title, author, category, publisher and publish year.
+- Each book has Edit and Delete links.
+- If there are no books, it shows the message "No books available."
+- Users can manage all books from this page.
+</details>
+
+<details>
+<summary>▫️ search.ejs</summary>
+This is the book search page for the library system.
+  
+- Reuses the shared navbar and footer.
+- The form uses GET method to send search requests to /books/search.
+- Users can choose a search field: title, author, category, publisher or publish year.
+- It keeps the previous search option and keyword after submitting.
+- Displays matching books in a table with Edit and Delete links.
+- Shows the number of matched books, or a message if no books are found.
+- Has a Clear button to reset the search and a link to return to the book list.
+</details>
+
+<details>
 <summary>▫️ login.ejs</summary>
 This is an EJS login page for our library system:
 
