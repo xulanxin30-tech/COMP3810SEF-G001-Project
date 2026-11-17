@@ -117,7 +117,15 @@ This is a CSS static file to style a simple book website.
 
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
+<details>
+<summary>▫️ dashboard.ejs</summary>
+This is an EJS view file for the protected user dashboard page.
 
+- It shows a welcome message with the logged-in user’s name and username.
+- It explains that unauthenticated users will be sent to the login page by the requireAuth middleware.
+- It provides a logout button and a link to go back to the homepage.
+- It uses auth.css for styling.
+</details>
 
 ### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
 
