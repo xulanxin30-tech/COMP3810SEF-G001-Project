@@ -127,6 +127,19 @@ This is an EJS view file for the protected user dashboard page.
 - It uses auth.css for styling.
 </details>
 
+<details>
+<summary>▫️  home.ejs</summary>
+This is a homepage file for a library website, written using EJS.
+  
+- It adds a menu bar at the top and a footer at the bottom (saved in separate files).
+- It shows a welcome text and a short description of the library system.
+- If there are library features to show, it lists them. If not, it says "No features available."
+- There is a button you can click to see all the books.
+- It uses a CSS file to make the page look nice.
+
+
+</details>
+
 ### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
 
 
