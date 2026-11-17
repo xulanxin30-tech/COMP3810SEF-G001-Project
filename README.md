@@ -65,14 +65,30 @@ We are building a server-side web application for a student library book managem
 
 
 ## 🚀Project file intro:
-### ➡️[config](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/config):
 
-### ➡️[middleware](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/middleware):
+The project is organized by directory layer, browsed top-down in the order **Root → config → middleware → models → routes → views → public**:
 
-### ➡️[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
+```text
+COMP3810SEF-G001-Project/
+├── server.js          # Startup entry: connect to MongoDB + start the listener
+├── app.js             # Express app setup: view engine, sessions, route mounting
+├── seeddata.js        # Seed data script (npm run seed)
+├── config/            # Configuration layer: DB connection, session settings
+├── middleware/        # Middleware layer: auth & access control, error handling
+├── models/            # Data layer: Mongoose schemas (User, Book)
+├── routes/            # Route layer: pages, auth, RESTful API, OAuth
+├── views/             # View layer: EJS templates (grouped by page type)
+└── public/            # Static assets: CSS stylesheets
+```
 
+### ➡️ Root
 
-### ➡️[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
+| File | Description |
+| --- | --- |
+| [server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js) | Startup entry: connects to the MongoDB database, then starts the Express listener (default port 3000). |
+| [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`, OAuth). |
+| [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
+| [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
 
 <details>
 <summary> 📦 dependencies</summary>
@@ -89,20 +105,77 @@ We are building a server-side web application for a student library book managem
 
 </details>
 
-### ➡️[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+### ➡️[config](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/config):
 
+Configuration layer: database connection and session settings.
+
+| File | Description |
+| --- | --- |
+| [db.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/config/db.js) | Connects to MongoDB via Mongoose; the connection string is read from `MONGODB_URI` in `.env` (no secrets committed). |
+| [session.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/config/session.js) | cookie-session configuration: 24-hour expiry, httpOnly, sameSite lax. |
+
+### ➡️[middleware](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/middleware):
+
+Middleware layer: session helpers, access control and error handling.
+
+| File | Description |
+| --- | --- |
+| [auth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/middleware/auth.js) | Session helpers and access control: `attachCurrentUser` (exposes the logged-in user to views), `requireAuth` (redirects unauthenticated visitors to login; 401 JSON for API calls), `requireGuest` (keeps logged-in users off the login/sign-up pages). |
+| [errorHandler.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/middleware/errorHandler.js) | Unified 404 / 500 handling: JSON responses for `/api` paths, plain HTML otherwise. |
+
+### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
+
+Data layer: Mongoose schemas.
+
+| File | Description |
+| --- | --- |
+| [schema.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/models/schema.js) | Defines two Mongoose models: **User** (username / password / name, with format validation) and **Book** (title / author / category / publisher / publishYear). |
+
+### ➡️[routes](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/routes):
+
+Route layer. Each router below is mounted in `app.js`.
+
+| File | Description |
+| --- | --- |
+| [index.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/index.js) | Homepage, `/health` check, and the book web CRUD routes: list / new / edit / delete / search under `/books`. |
+| [auth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/auth.js) | Sign-up, login, logout and `/auth/me` (`who am I`) routes, with input validation. |
+| [dashboard.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/dashboard.js) | Protected user dashboard at `/dashboard` (requires login via `requireAuth`). |
+| [api.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/api.js) | Unauthenticated RESTful CRUD API for items at `/api/items` (in-memory data, for curl testing). |
+| [oauth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/oauth.js) | Optional Facebook OAuth login (`/auth/facebook/*`); only enabled when `FACEBOOK_APP_ID` / `FACEBOOK_APP_SECRET` are set in `.env`. |
+
+### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
+
+View layer: EJS templates, grouped by page type.
+
+| File / Folder | Description |
+| --- | --- |
+| [home.ejs](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/views/home.ejs) | Homepage: welcome text, feature list and a button to browse all books. |
+| [dashboard.ejs](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/views/dashboard.ejs) | Logged-in dashboard: welcome message, logout button and link back to homepage. |
+| 📂 [auth/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/auth) | Login and sign-up pages. |
+| 📂 [books/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/books) | Book management pages (list / create / edit / delete / search). |
 
 <details>
-<summary>▫️ auth.css</summary>
-This is a CSS file (static file) that makes login, sign-up and user pages look nice.
+<summary>📂 auth/ — login & sign-up pages</summary>
 
+- **login.ejs** — Login form (username + password) with error messages on top; shows a Facebook login button only when OAuth is configured; links to the sign-up page.
+- **signup.ejs** — Sign-up form (Full Name, Username, Password with format validation), POSTs to `/auth/signup`; links to the login page.
 
-- It makes a white box in the middle of the screen for the form.
-- It styles text boxes, labels and a blue submit button.
-- It adds red boxes for error messages and green boxes for tips.
-- It has a dividing line and a Facebook login button.
-- It also styles links to switch between login and sign up.
 </details>
+
+<details>
+<summary>📂 books/ — book management pages</summary>
+
+- **list.ejs** — All-books table (title / author / category / publisher / publish year) with Edit & Delete links, plus "Add New Book" and "Search Books" buttons.
+- **create.ejs** — Add-book form: title (required), author (required), category, publisher, publish year (number input).
+- **edit.ejs** — Edit-book form, pre-filled with the book's current data.
+- **delete.ejs** — Delete confirmation page showing the book's details before removing it.
+- **search.ejs** — Search by title / author / category / publisher / publish year; shows the number of matches.
+
+</details>
+
+### ➡️[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
+
+Static assets (CSS).
 
 <details>
 <summary>▫️ style.css</summary>
@@ -118,69 +191,16 @@ This is a CSS static file to style a simple book website.
 - It also has a simple footer and dividing lines for the login page.
 </details>
 
-### ➡️[routes](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/routes):
-
-
-### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
-<summary>▫️ login.ejs</summary>
-This is an EJS login page for our library system:
-
-- It loads the shared navbar and footer.
-- It shows a login form with username and password inputs.
-- Username only allows lowercase letters and numbers.
-- If there are error messages, it will show them on top.
-- There is an optional Facebook login button — it only appears when Facebook OAuth is set up.
-- It has a link to the sign-up page for new users.
-- It uses your style.css file for styling.
-</details>
+<summary>▫️ auth.css</summary>
+This is a CSS file (static file) that makes login, sign-up and user pages look nice.
 
 
-<details>
-<summary>▫️ dashboard.ejs</summary>
-This is an EJS view file for the protected user dashboard page.
-
-- It shows a welcome message with the logged-in user’s name and username.
-- It explains that unauthenticated users will be sent to the login page by the requireAuth middleware.
-- It provides a logout button and a link to go back to the homepage.
-- It uses auth.css for styling.
-</details>
-
-<details>
-<summary>▫️  signup.ejs</summary>
-This is an EJS signup page for the library system:
-  
-- It uses the shared navbar and footer.
-- It can show error messages sent from the backend.
-- The form sends data by POST to /auth/signup.
-- Input fields: 1. Full Name (required) 2. Username: only lowercase letters and numbers (required) 3. Password: must have at least one letter and one number (required)
-- It has a link to jump to the login page if the user already has an account.
-- It links to the style sheet for page styling.
-
-
-</details>
-
-<details>
-<summary>▫️  home.ejs</summary>
-This is a homepage file for a library website, written using EJS.
-  
-- It adds a menu bar at the top and a footer at the bottom (saved in separate files).
-- It shows a welcome text and a short description of the library system.
-- If there are library features to show, it lists them. If not, it says "No features available."
-- There is a button you can click to see all the books.
-- It uses a CSS file to make the page look nice.
-
-
-</details>
-
-### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
-
-
-<details>
-<summary>▫️ schema.js</summary>
-This models file defines two Mongoose schemas and models: User (for user accounts) and Book (for book records).
-</details>
-
+- It makes a white box in the middle of the screen for the form.
+- It styles text boxes, labels and a blue submit button.
+- It adds red boxes for error messages and green boxes for tips.
+- It has a dividing line and a Facebook login button.
+- It also styles links to switch between login and sign up.
 </details>
 
 
