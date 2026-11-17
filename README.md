@@ -128,6 +128,20 @@ This is an EJS view file for the protected user dashboard page.
 </details>
 
 <details>
+<summary>▫️  signup.ejs</summary>
+This is an EJS signup page for the library system:
+  
+- It uses the shared navbar and footer.
+- It can show error messages sent from the backend.
+- The form sends data by POST to /auth/signup.
+- Input fields: 1. Full Name (required) 2. Username: only lowercase letters and numbers (required) 3. Password: must have at least one letter and one number (required)
+- It has a link to jump to the login page if the user already has an account.
+- It links to the style sheet for page styling.
+
+
+</details>
+
+<details>
 <summary>▫️  home.ejs</summary>
 This is a homepage file for a library website, written using EJS.
   
