@@ -2,6 +2,12 @@
 const express = require('express')
 const router = express.Router()
 const { Book } = require('../models/schema')
+const { requireAuth } = require('../middleware/auth')
+
+// T12: all book CRUD routes require login (unauthenticated visitors are
+// redirected to /auth/login by requireAuth). Admin-only checks come later,
+// once the role field lands on the User schema.
+router.use('/books', requireAuth)
 
 // Homepage
 router.get('/', (req, res) => {
