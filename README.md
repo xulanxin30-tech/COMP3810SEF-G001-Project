@@ -70,6 +70,20 @@ We are building a server-side web application for a student library book managem
 
 ### ➡️[package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json):
 
+<details>
+<summary> 📦 dependencies</summary>
+
+- cookie-session: ^2.1.1
+- dotenv: ^18.0.9
+- ejs: ^7.0.2
+- express: ^5.3.0
+- express-session: ^1.18.0
+- mongoose: ^9.11.3
+- passport: ^0.7.0
+- passport-facebook: ^3.0.0
+
+
+</details>
 
 ### ➡️[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
 
@@ -77,26 +91,30 @@ We are building a server-side web application for a student library book managem
 <details>
 <summary>▫️ auth.css</summary>
 This is a CSS file (static file) that makes login, sign-up and user pages look nice.
-It makes a white box in the middle of the screen for the form.
-It styles text boxes, labels and a blue submit button.
-It adds red boxes for error messages and green boxes for tips.
-It has a dividing line and a Facebook login button.
-It also styles links to switch between login and sign up.
+
+
+- It makes a white box in the middle of the screen for the form.
+- It styles text boxes, labels and a blue submit button.
+- It adds red boxes for error messages and green boxes for tips.
+- It has a dividing line and a Facebook login button.
+- It also styles links to switch between login and sign up.
 </details>
 
 <details>
 <summary>▫️ style.css</summary>
 This is a CSS static file to style a simple book website.
-It makes a top navigation bar with the site name and links.
-It has a white box layout for main page content and login/signup forms.
-It styles input boxes, blue buttons, and a red delete button.
-It makes a table to show books, with links to edit or delete them.
-It adds red warning boxes for login errors, and a Facebook login button.
-It sets hover effects: links and buttons change colour or show underlines when you move your mouse over them.
-It also has a simple footer and dividing lines for the login page.
+
+
+- It makes a top navigation bar with the site name and links.
+- It has a white box layout for main page content and login/signup forms.
+- It styles input boxes, blue buttons, and a red delete button.
+- It makes a table to show books, with links to edit or delete them.
+- It adds red warning boxes for login errors, and a Facebook login button.
+- It sets hover effects: links and buttons change colour or show underlines when you move your mouse over them.
+- It also has a simple footer and dividing lines for the login page.
 </details>
 
-</details>
+
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 
