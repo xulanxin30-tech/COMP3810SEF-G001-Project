@@ -16,7 +16,7 @@
 | Node.js / npm | v22.22.2 / 10.9.7 |
 | 被测代码 | `main` 分支 @ `2319dee`（本分支 `test-version1` 的基线） |
 | 服务器启动方式 | `npm start`（Express，端口 3000） |
-| 数据库 | **MongoDB Atlas 云数据库**（集群 `test1.8lza7ju.mongodb.net`，库 `library`） |
+| 数据库 | **MongoDB Atlas 云数据库**（连接信息由 `.env` 提供，不入库；数据库名 `library`） |
 | 种子数据 | 3 个用户（s0000001 / s1397832 / s3780234）+ 3 本图书（Computer networks 1–3） |
 | 测试工具 | curl（HTTP 请求 + Cookie Jar 会话模拟）、npm audit |
 
