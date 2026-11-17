@@ -114,10 +114,30 @@ This models file defines two Mongoose schemas and models: User (for user account
 
 
 ## 🧪Operation guides:
-### ➡️Use of Login/Logout pages:
+Start the server first: type npm install, copy .env example to .env and fill in MONGODB_URI, then run npm seed (once) and npm start. 
+When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, replace localhost with the VM's IP address.
 
+### ➡️Use of Login/Logout pages: 
+| Username | Password | Name |
+| s0000001 | sz212345 | Zhang San |
+| s1397832 | Abc22222 | Xiao Ming |
+| s3780234 | Def33333 | Xiao Qiao |
+
+- Login steps:
+- Open http://localhost:3000 and click Login in the top navigation bar (or go to /auth/login).
+- Enter the username and password, then click the Login button.
+- On success you will be redirected to the dashboard (/dashboard), and the navigation bar shows Welcome, <your name> and a Logout link. On failure the page shows the error Invalid username or password.
+
+- Logout steps:
+- Click Logout in the navigation bar, or click the Log out button on the dashboard page. The session cookie is cleared and you are returned to the home page.
 
 ### ➡️Use of CRUD web pages:
+| CRUD | What to click | URI |
+| Create | Add New Book button, fill in the form, click Add Book	| /books/new
+| Read |	Books link in the navigation bar; Search Books button to search	/books, | /books/search
+| Update | Edit link in a book's row, change the fields, click Save Changes	| /books/<id>/edit
+| Delete	| Delete link in a book's row, then click Confirm Delete	| /books/<id>/delete
+
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
 | ---- | ---- | ---- | ---- | ---- |
