@@ -123,6 +123,20 @@ This is a CSS static file to style a simple book website.
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
+<summary>▫️ login.ejs</summary>
+This is an EJS login page for our library system:
+
+- It loads the shared navbar and footer.
+- It shows a login form with username and password inputs.
+- Username only allows lowercase letters and numbers.
+- If there are error messages, it will show them on top.
+- There is an optional Facebook login button — it only appears when Facebook OAuth is set up.
+- It has a link to the sign-up page for new users.
+- It uses your style.css file for styling.
+</details>
+
+
+<details>
 <summary>▫️ dashboard.ejs</summary>
 This is an EJS view file for the protected user dashboard page.
 
