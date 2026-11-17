@@ -1,29 +1,27 @@
-# 测试一 · 基础联调测试（test-version1）
+# Test 1 — Basic Integration Testing (test-version1)
 
-> **COMP3810SEF-G001-Project** 学生图书馆图书管理系统 —— 第一轮基础测试
-> **测试日期**：2026-11-18 ｜ **被测基线**：`main` @ `2319dee` ｜ **数据库**：MongoDB Atlas（云）
+> **COMP3810SEF-G001-Project** Student-Library Book Management System — first round of testing
+> **Date**: 18 Nov 2026 | **Code under test**: `main` @ `2319dee` | **Database**: MongoDB Atlas (cloud)
 
-## 本目录内容
+## What's in this folder
 
-| 文件 | 内容 |
+| File | Contents |
 | --- | --- |
-| [01-test-report.md](./01-test-report.md) | **测试报告**：42 项用例结果总览、问题清单（P1–P3）、主题符合度评估（重点 1）、云计算功能检查与用户用例（重点 2）、**测试二范围建议** |
-| [02-code-quality-report.md](./02-code-quality-report.md) | **代码质量报告**：六维度评分、优点、P1–P3 问题清单、风格一致性抽查、改进优先级路线图 |
-| [03-frontend-backend-integration-report.md](./03-frontend-backend-integration-report.md) | **前后端功能联调报告**：A–E 五组共 42 项用例逐项明细（含原始响应）、联调链路图、复现步骤 |
+| [01-test-report.md](./01-test-report.md) | **Test report**: 42 cases and results, issue list (P1–P3), theme-compliance check (focus 1), cloud features and user cases (focus 2), and what Test 2 should cover |
+| [02-code-quality-report.md](./02-code-quality-report.md) | **Code quality report**: scoring across six dimensions, what's good, P1–P3 issues, style consistency check, and a suggested order of fixes |
+| [03-frontend-backend-integration-report.md](./03-frontend-backend-integration-report.md) | **Frontend–backend integration report**: all 42 cases in groups A–E with raw responses, the integration chain, and reproduction steps |
 
-## 一句话结论
+## The short version
 
-✅ 核心链路（认证 / 图书 CRUD / RESTful API / Atlas 云数据库联调）全部打通；
-🔴 两项 P1 待修：**图书写操作无登录保护**、**seeddata.js 损坏**；
-⚠️ 借阅/续借/归还/预约与 Admin 角色尚未实现（学生 6 项业务功能完成 2 项），列入**测试二**范围。
+The core flows — authentication, book CRUD, the RESTful API, and the Atlas cloud database connection — all work. Two serious issues need fixing: **book writes have no login protection**, and **seeddata.js is broken**. Borrowing, renewal, returns, reservations and the Admin role haven't been built yet (2 of the 6 student features are done), and those go into the **Test 2** scope.
 
-## 测试统计
+## Numbers
 
-| 组 | 范围 | 通过/总数 |
+| Group | Scope | Passed / total |
 | --- | --- | --- |
-| A | 未登录页面可达性 | 11/12 |
-| B | 注册/登录/会话/登出 | 7/7 |
-| C | 图书 CRUD 网页 + 输入校验 | 11/12 |
-| D | RESTful API（Operation Guide 原样 curl） | 8/8 |
-| E | 权限边界与安全 | 1/3 |
-| **合计** | | **38/42（90.5%）** |
+| A | Pages while logged out | 11/12 |
+| B | Sign-up / login / session / logout | 7/7 |
+| C | Book CRUD pages + input validation | 11/12 |
+| D | RESTful API (curl straight from the Operation Guide) | 8/8 |
+| E | Access control and security | 1/3 |
+| **Total** | | **38/42 (90.5%)** |

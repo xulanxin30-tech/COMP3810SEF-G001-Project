@@ -1,126 +1,125 @@
-# COMP3810SEF-G001 前后端功能联调报告（测试一）
+# Frontend–Backend Integration Report — Test 1
 
-> **分支**：`test-version1` ｜ **测试日期**：2026-11-18 ｜ **环境**：localhost:3000 ↔ MongoDB Atlas（云）
-> **方法**：curl 模拟浏览器完整请求链（含 Cookie Jar 会话保持），逐项记录 HTTP 状态码、重定向与响应体关键内容
+> **Branch**: `test-version1` | **Date**: 18 Nov 2026 | **Environment**: localhost:3000 ↔ MongoDB Atlas (cloud)
+> **Method**: curl playing the role of a browser, with a cookie jar to hold the session. For every case we recorded the HTTP status, any redirect, and the key parts of the response body.
 
-## 一、联调链路总览
+## 1. The integration chain at a glance
 
 ```
-浏览器/EJS 页面（前端）          Express 路由（后端）           MongoDB Atlas（云数据库）
-─────────────────────────      ─────────────────────────      ─────────────────────────
-home.ejs / books/*.ejs   ───►   routes/index.js  (/books CRUD)  ───►  books 集合
-auth/login.ejs signup.ejs ───►  routes/auth.js   (/auth/*)     ───►  users 集合
-dashboard.ejs            ───►   routes/dashboard.js (受保护)    ───►  （无直接 DB 访问）
-curl（Operation Guide）  ───►   routes/api.js    (/api/items)   ───►  （内存数据）
-OAuth 登录按钮            ───►   routes/oauth.js  (/auth/facebook/*) ──► Facebook（未配置）
+Browser / EJS pages (frontend)     Express routes (backend)         MongoDB Atlas (cloud)
+───────────────────────────      ──────────────────────────      ──────────────────────────
+home.ejs / books/*.ejs    ───►    routes/index.js  (/books CRUD)  ───►  books collection
+auth/login.ejs signup.ejs ───►    routes/auth.js   (/auth/*)      ───►  users collection
+dashboard.ejs             ───►    routes/dashboard.js (protected)  ───►  (no direct DB access)
+curl (Operation Guide)    ───►    routes/api.js    (/api/items)   ───►  (in-memory data)
+OAuth login button        ───►    routes/oauth.js  (/auth/facebook/*) ──► Facebook (not configured)
 ```
 
-- 前后端数据流全部走 **表单 POST / URL 查询串 GET → 路由 → Mongoose → Atlas**，EJS 服务端渲染，实测全链路连通。
-- 静态资源（`/css/style.css`、`/css/auth.css`）随页面正常加载。
+All page traffic goes **form POST / query-string GET → routes → Mongoose → Atlas**, rendered server-side by EJS, and the whole chain worked. Static assets (`/css/style.css`, `/css/auth.css`) load fine alongside the pages.
 
-## 二、A 组：未登录页面联调明细（12 项）
+## 2. Group A — pages while logged out (12 cases)
 
-| # | 请求 | 预期 | 实际 | 结果 |
+| # | Request | Expected | What happened | Result |
 | --- | --- | --- | --- | --- |
-| A1 | `GET /` | 200 首页 | 200，navbar/功能列表/View Books 按钮正常渲染 | ✅ |
-| A2 | `GET /health` | 200 `{"status":"ok"}` | 200，一致 | ✅ |
-| A3 | `GET /books` | 200 图书列表 | 200，3 本种子书含 Edit/Delete 链接 | ✅⚠️ |
-| A4 | `GET /books/new` | 200 添加表单 | 200，5 个字段渲染正常 | ✅⚠️ |
-| A5 | `GET /books/search` | 200 搜索页 | 200，"Found 3 book(s)" | ✅ |
-| A6 | `GET /books/search?q=networks&type=title` | 命中 3 本 | 200，命中 3 本 | ✅ |
-| A7 | `GET /auth/login` | 200 登录页 | 200，username/password 表单正常，无 Facebook 按钮（未配置，符合预期） | ✅ |
-| A8 | `GET /auth/signup` | 200 注册页 | 200，三字段表单 + pattern 校验 | ✅ |
-| A9 | `GET /dashboard` | 302 → 登录页 | 302 → `/auth/login?next=%2Fdashboard` | ✅ |
-| A10 | `GET /auth/me` | 401 | 401 `{"error":"Not logged in"}` | ✅ |
-| A11 | `GET /auth/facebook` | 未配置降级 | 302 → `/auth/login?oauth=unconfigured` | ✅ |
-| A12 | `GET /nonexistent` | 404 | 404 "404 Not Found" | ✅ |
+| A1 | `GET /` | 200 homepage | 200, navbar / feature list / View Books button all render | Pass |
+| A2 | `GET /health` | 200 `{"status":"ok"}` | 200, exactly that | Pass |
+| A3 | `GET /books` | 200 book list | 200, 3 seed books with Edit/Delete links | Pass, with a note |
+| A4 | `GET /books/new` | 200 add form | 200, all 5 fields render | Pass, with a note |
+| A5 | `GET /books/search` | 200 search page | 200, "Found 3 book(s)" | Pass |
+| A6 | `GET /books/search?q=networks&type=title` | 3 hits | 200, 3 hits | Pass |
+| A7 | `GET /auth/login` | 200 login page | 200, username/password form, no Facebook button (not configured — expected) | Pass |
+| A8 | `GET /auth/signup` | 200 signup page | 200, three fields with pattern validation | Pass |
+| A9 | `GET /dashboard` | 302 to login | 302 → `/auth/login?next=%2Fdashboard` | Pass |
+| A10 | `GET /auth/me` | 401 | 401 `{"error":"Not logged in"}` | Pass |
+| A11 | `GET /auth/facebook` | graceful fallback | 302 → `/auth/login?oauth=unconfigured` | Pass |
+| A12 | `GET /nonexistent` | 404 | 404 "404 Not Found" | Pass |
 
-> ⚠️ A3/A4：功能正常，但**未登录即可访问图书列表与添加页**（写操作实测可执行，见 E 组）——前端呈现正常、后端缺权限校验。
+Note on A3/A4: the pages work, but the book list and the add-book form are reachable **without logging in** (and writes actually go through — see Group E). The frontend looks right; the backend just isn't checking anything.
 
-## 三、B 组：注册 / 登录 / 会话联调明细（7 项，全过）
+## 3. Group B — sign-up / login / session (7 cases, all passed)
 
-| # | 操作 | 实际结果 | 结果 |
+| # | Step | What happened | Result |
 | --- | --- | --- | --- |
-| B1 | `POST /auth/signup`（s9999999 / Test12345） | 302 → `/dashboard`，Set-Cookie 会话建立，Atlas users 集合新增记录 | ✅ |
-| B2 | 携 Cookie `GET /dashboard` | 200，欢迎页（姓名/用户名正确） | ✅ |
-| B3 | 已登录 `GET /auth/login` | 302 → `/dashboard`（requireGuest 生效） | ✅ |
-| B4 | 携 Cookie `GET /auth/me` | `{"user":{"username":"s9999999","name":"Test User"}}` | ✅ |
-| B5 | `POST /auth/login` 错误密码 | 401，登录页错误提示 | ✅ |
-| B6 | `POST /auth/login`（种子账号 s0000001/sz212345） | 302 → `/dashboard`，Atlas 云端账号验证通过 | ✅ |
-| B7 | `POST /auth/logout` → `GET /dashboard` | 302 → `/`；登出后 dashboard 302 → 登录页（会话已销毁） | ✅ |
+| B1 | `POST /auth/signup` (s9999999 / Test12345) | 302 → `/dashboard`, session cookie set, new record in the Atlas users collection | Pass |
+| B2 | With cookie, `GET /dashboard` | 200, welcome page with the right name and username | Pass |
+| B3 | Logged in, `GET /auth/login` | 302 → `/dashboard` (requireGuest doing its job) | Pass |
+| B4 | With cookie, `GET /auth/me` | `{"user":{"username":"s9999999","name":"Test User"}}` | Pass |
+| B5 | `POST /auth/login` with a wrong password | 401, error shown on the login page | Pass |
+| B6 | `POST /auth/login` (seed account s0000001/sz212345) | 302 → `/dashboard` — the cloud-side account verifies fine | Pass |
+| B7 | `POST /auth/logout`, then `GET /dashboard` | logout 302 → `/`; dashboard then 302 → login (session properly destroyed) | Pass |
 
-## 四、C 组：图书 CRUD 网页联调明细（12 项）
+## 4. Group C — book CRUD pages (12 cases)
 
-| # | 操作 | 实际结果 | 结果 |
+| # | Step | What happened | Result |
 | --- | --- | --- | --- |
-| C1 | `POST /books` 新建（Test Book Alpha） | 302 → `/books`，Atlas books 新增 | ✅ |
-| C2 | `GET /books` 确认 | 列表出现新书（计数 1） | ✅ |
-| C3 | `GET /books/search?q=Alpha&type=title` | 200，"Found 1 book(s)" | ✅ |
-| C4 | `GET /books/:id/edit` | 200，表单回填当前数据 | ✅ |
-| C5 | `POST /books/:id/edit` 改名 v2 | 302 → `/books`，列表确认更新 | ✅ |
-| C6 | `GET /books/:id/delete` → `POST` 确认 | 确认页 200；删除 302，列表中消失 | ✅ |
-| C7 | 搜索 `type=invalid` | 400 "Invalid search type"（后端白名单校验生效） | ✅ |
-| C8 | 搜索 `type=publishYear&q=abc` | 400 "Please enter a valid year" | ✅ |
-| C9 | 注册 `username=BADUSER` | **302 注册成功（被转为 baduser）**——前端 pattern 拦截、后端静默转小写，**不一致** | ⚠️ |
-| C10 | 注册纯字母密码 | 400，错误提示 | ✅ |
-| C11 | 重复用户名 s0000001 | 409 "This username is already taken." | ✅ |
-| C12 | 编辑不存在的图书 id | 404 "Book not found" | ✅ |
+| C1 | `POST /books` (Test Book Alpha) | 302 → `/books`, new document in Atlas | Pass |
+| C2 | `GET /books` check | New book shows up in the list | Pass |
+| C3 | `GET /books/search?q=Alpha&type=title` | 200, "Found 1 book(s)" | Pass |
+| C4 | `GET /books/:id/edit` | 200, form pre-filled with current data | Pass |
+| C5 | `POST /books/:id/edit` rename to v2 | 302 → `/books`, list confirms the change | Pass |
+| C6 | `GET /books/:id/delete` then `POST` to confirm | Confirm page 200; delete 302; book gone from the list | Pass |
+| C7 | Search with `type=invalid` | 400 "Invalid search type" (the server-side whitelist works) | Pass |
+| C8 | Search `type=publishYear&q=abc` | 400 "Please enter a valid year" | Pass |
+| C9 | Sign-up with `username=BADUSER` | **302 — accepted, silently lowercased to `baduser`.** The browser pattern would block it, the server doesn't. The two ends disagree | Issue |
+| C10 | Sign-up with an all-letters password | 400 with an error message | Pass |
+| C11 | Duplicate username s0000001 | 409 "This username is already taken." | Pass |
+| C12 | Edit a book id that doesn't exist | 404 "Book not found" | Pass |
 
-## 五、D 组：RESTful API 联调明细（8 项，按 Operation Guide 原命令）
+## 5. Group D — RESTful API (8 cases, curl exactly as in the Operation Guide)
 
-| # | 操作（Operation Guide 原样 curl） | 实际响应 | 结果 |
+| # | Command (from the Operation Guide) | Response | Result |
 | --- | --- | --- | --- |
-| D1 | `GET /api/items` | 200 `[{"id":1,"name":"Task example","completed":false}]` | ✅ |
-| D2 | `POST /api/items` `{"name":"New Task","completed":false}` | 201 `{"id":2,...}` | ✅ |
-| D3 | `PUT /api/items/1` `{"name":"Updated Task","completed":true}` | 200，字段已更新 | ✅ |
-| D4 | `DELETE /api/items/1` | 204 No Content | ✅ |
-| D5 | `GET /api/items` 复查 | 200，id=1 已移除 | ✅ |
-| D6 | `POST` 缺 name | 400 `{"error":"Name is required"}` | ✅ |
-| D7 | `PUT /api/items/999` | 404 `{"error":"Item not found"}` | ✅ |
-| D8 | `DELETE /api/items/999` | 404 同上 | ✅ |
+| D1 | `GET /api/items` | 200 `[{"id":1,"name":"Task example","completed":false}]` | Pass |
+| D2 | `POST /api/items` `{"name":"New Task","completed":false}` | 201 `{"id":2,...}` | Pass |
+| D3 | `PUT /api/items/1` `{"name":"Updated Task","completed":true}` | 200, fields updated | Pass |
+| D4 | `DELETE /api/items/1` | 204 No Content | Pass |
+| D5 | `GET /api/items` again | 200, id=1 gone | Pass |
+| D6 | `POST` without a name | 400 `{"error":"Name is required"}` | Pass |
+| D7 | `PUT /api/items/999` | 404 `{"error":"Item not found"}` | Pass |
+| D8 | `DELETE /api/items/999` | 404, same | Pass |
 
-> API 行为与 README「Use of RESTful CRUD pages」表格**完全一致**；注意 `/api/items` 为内存数据（重启即重置），不落 Atlas。
+The API behaves exactly as documented in the README's "Use of RESTful CRUD pages" table. Just remember `/api/items` is in-memory — restart the server and it resets; nothing goes to Atlas.
 
-## 六、E 组：权限边界与安全联调明细
+## 6. Group E — access control and security
 
-| # | 操作 | 实际结果 | 结果 |
+| # | Step | What happened | Result |
 | --- | --- | --- | --- |
-| E1 | **无 Cookie** `POST /books` 创建 "HACKED BOOK" | **302 创建成功，出现在列表中** | 🔴 |
-| E2 | **无 Cookie** `POST /books/:id/delete` | **302 删除成功**（种子书被删，已恢复） | 🔴 |
-| E3 | 登录响应 `Set-Cookie` | `httponly` ✓ `samesite=lax` ✓；无 `Secure`（本地非生产，预期）；内容 Base64 仅签名 | ⚠️ |
+| E1 | **No cookie**, `POST /books` creating "HACKED BOOK" | **302, created successfully, visible in the list** | Fail (serious) |
+| E2 | **No cookie**, `POST /books/:id/delete` | **302, deleted** (a seed book — we restored it afterwards) | Fail (serious) |
+| E3 | `Set-Cookie` from a login response | `httponly` on, `samesite=lax` on; no `Secure` (expected locally, not production); body is Base64, signed but not encrypted | Note |
 
-**E1/E2 复现步骤**（供开发验证修复）：
+How to reproduce E1/E2 so the fix can be verified:
 
 ```bash
-# 未携带任何会话 Cookie：
+# With no session cookie at all:
 curl -X POST http://localhost:3000/books \
   --data "title=HACKED BOOK&author=Anon&category=X&publisher=X&publishYear=2026"
-# 预期（修复后）：302 -> /auth/login；实际：302 -> /books 且写入成功
+# Expected after the fix: 302 -> /auth/login. What we got: 302 -> /books, and the book exists.
 
-curl -X POST http://localhost:3000/books/<id>/delete   # 匿名删除同样成功
+curl -X POST http://localhost:3000/books/<id>/delete   # anonymous delete works too
 ```
 
-## 七、前后端联调综合结论
+## 7. Overall integration verdict
 
-1. **数据链路健康**：EJS 页面 → Express 路由 → Mongoose → Atlas 云库的全链路读写实测畅通，前后端字段（title/author/category/publisher/publishYear、username/password/name）完全对齐，无序列化/类型问题。
-2. **认证链路健康**：注册/登录/登出/会话劫持防护（requireGuest、next 回跳）全部符合设计。
-3. **API 链路健康**：与 Operation Guide 文档行为 100% 一致。
-4. **主要短板**：后端权限校验未覆盖图书路由（前端虽有「未登录只能看」的页面引导，但后端裸奔），以及注册大小写校验前后端不一致——两处均已在《测试报告》列为 P1/P2 问题。
-5. 测试产生的临时数据（HACKED BOOK、Test Book、测试用户 s9999999/baduser）已全部清理，Atlas 恢复为 3 用户 + 3 图书的种子状态。
+1. **The data path is healthy.** EJS pages → Express routes → Mongoose → Atlas worked end to end for both reads and writes. Fields line up on both sides (title/author/category/publisher/publishYear, username/password/name) with no serialisation or type surprises.
+2. **The auth path is healthy.** Sign-up, login, logout, the guest guard and the `next` bounce-back all behave as designed.
+3. **The API path is healthy.** 100% consistent with the Operation Guide.
+4. **The weak point** is that backend permission checks never made it onto the book routes — the frontend politely steers logged-out users around, but the backend itself accepts anything — plus the username-case disagreement between the form and the server. Both are logged as P1/P2 in the test report.
+5. All test data created during this round (HACKED BOOK, the test books, test users s9999999 and baduser) has been cleaned up. Atlas is back to 3 users and 3 books, exactly the seed state.
 
-## 八、原始测试环境快照（复现用）
+## 8. Environment snapshot (for reproducing)
 
 ```bash
-# 1) 配置 .env（参照 .env.example，MONGODB_URI 指向 Atlas）
-# 2) 安装并启动
+# 1) Set up .env (copy .env.example; MONGODB_URI points at Atlas)
+# 2) Install and start
 npm install && npm start          # Server running at http://localhost:3000
-# 3) 冒烟
+# 3) Smoke test
 curl http://localhost:3000/health # {"status":"ok"}
-# 4) 登录（种子账号）
+# 4) Log in (seed account)
 curl -c jar.txt -X POST http://localhost:3000/auth/login \
   --data "username=s0000001&password=sz212345"   # 302 -> /dashboard
-# 5) API（Operation Guide）
+# 5) API (Operation Guide)
 curl http://localhost:3000/api/items             # 200
 ```
 
-> 注：`npm run seed` 当前不可用（见代码质量报告 P1-2），复现时需手动准备种子数据。
+Heads up: `npm run seed` currently doesn't work (see the code quality report, P1-2), so seed the data by hand when reproducing.

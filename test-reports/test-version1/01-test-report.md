@@ -1,157 +1,152 @@
-# COMP3810SEF-G001 测试报告（测试一 · 基础联调测试）
+# Test Report — Test 1 (Basic Integration Testing)
 
-> **分支**：`test-version1` ｜ **测试日期**：2026-11-18（GMT+8） ｜ **测试人**：G001 测试组
-> **测试性质**：基础测试（测试一），非最终验收测试
+> **Branch**: `test-version1` | **Date**: 18 Nov 2026 (GMT+8) | **Tested by**: G001 testing
+> **Type**: Basic testing (Test 1), not the final acceptance test.
 
-## 一、测试目的（本期重点）
+## 1. Purpose of this round
 
-1. **主题符合度检查**：检查项目代码是否符合项目初期要求，即是否符合「学生图书馆图书管理系统（Express.js + MongoDB + EJS）」的项目主题。
-2. **云计算功能与用户用例检查**：根据项目涉及的技术文档，测试是否包含服务端云计算的相关功能，并对已实现的用户用例进行测试，同时给出第二步测试（测试二）所需测试的内容（用户角色、用户功能等）。
+Two things we wanted to check in this round:
 
-## 二、测试环境
+1. **Theme compliance.** Does the current code actually match what we set out to build at the start — a Student-Library Book Management System on Express.js + MongoDB + EJS?
+2. **Cloud / server-side features and user cases.** Based on the technical documents we've been given, check whether the project includes the server-side cloud computing features we're supposed to have, run the user cases that exist today, and write down what Test 2 should cover (user roles, user features, and so on).
 
-| 项目 | 配置 |
+## 2. Test environment
+
+| Item | Setup |
 | --- | --- |
-| 操作系统 | Windows（Git Bash / curl 8.x） |
+| OS | Windows (Git Bash / curl 8.x) |
 | Node.js / npm | v22.22.2 / 10.9.7 |
-| 被测代码 | `main` 分支 @ `2319dee`（本分支 `test-version1` 的基线） |
-| 服务器启动方式 | `npm start`（Express，端口 3000） |
-| 数据库 | **MongoDB Atlas 云数据库**（连接信息由 `.env` 提供，不入库；数据库名 `library`） |
-| 种子数据 | 3 个用户（s0000001 / s1397832 / s3780234）+ 3 本图书（Computer networks 1–3） |
-| 测试工具 | curl（HTTP 请求 + Cookie Jar 会话模拟）、npm audit |
+| Code under test | `main` @ `2319dee` (the base of this branch) |
+| How the server was started | `npm start` (Express, port 3000) |
+| Database | **MongoDB Atlas** (cloud; connection info comes from `.env`, never committed; database name `library`) |
+| Seed data | 3 users (s0000001 / s1397832 / s3780234) and 3 books (Computer networks 1–3) |
+| Tools | curl (HTTP + cookie jar to keep a session), npm audit |
 
-> 说明：`seeddata.js` 当前无法运行（详见 4.1），种子数据通过等效脚本写入 Atlas，数据内容与 `seeddata.js` 定义完全一致。
+Note: `seeddata.js` doesn't currently run (see 4.1), so we loaded the seed data with an equivalent script. The data itself is exactly what `seeddata.js` defines.
 
-## 三、测试范围与执行结果总览
+## 3. What we tested and the overall result
 
-依据 README「Operation guides」章节（Login/Logout 页面、CRUD 网页、RESTful CRUD API）设计测试组 A–E，共 **39 项**测试用例。
+We built test groups A–E from the README "Operation guides" section (Login/Logout pages, CRUD web pages, RESTful CRUD API), 42 test cases in total.
 
-| 测试组 | 内容 | 用例数 | 通过 | 未通过/发现 |
+| Group | What it covers | Cases | Passed | Issues found |
 | --- | --- | --- | --- | --- |
-| A | 未登录状态页面可达性 | 12 | 11 | 1 ⚠️（图书页未登录可访问） |
-| B | 注册 / 登录 / 会话 / 登出 | 7 | 7 | — |
-| C | 图书 CRUD 网页 + 输入校验 | 12 | 11 | 1 ⚠️（注册大小写校验不一致） |
-| D | RESTful API（Operation Guide 原样 curl） | 8 | 8 | — |
-| E | 权限边界与安全 | 3 | 1 | 2 🔴（匿名可增删图书） |
-| **合计** | | **42** | **38** | **4** |
+| A | Pages while logged out | 12 | 11 | 1 (book pages open to anonymous users) |
+| B | Sign-up / login / session / logout | 7 | 7 | — |
+| C | Book CRUD pages + input validation | 12 | 11 | 1 (username case handling inconsistent) |
+| D | RESTful API (curl commands straight from the Operation Guide) | 8 | 8 | — |
+| E | Access control and security | 3 | 1 | 2 (anonymous users can add/delete books) |
+| **Total** | | **42** | **38** | **4** |
 
-**结论：核心链路（认证、图书 CRUD、API）功能正常，云数据库联调成功；主要问题集中在「权限保护缺失」与「种子脚本损坏」。**
+**Bottom line: the core flows (authentication, book CRUD, the API, and the Atlas connection) all work. The real problems are missing access control on the book routes and a broken seed script.**
 
-## 四、发现的问题清单（按严重程度排序）
+## 4. Issues found (ordered by severity)
 
-### 🔴 严重（P1）
+### P1 — Serious
 
-**4.1 `npm run seed` 无法运行**
-- 现象：`Error: Cannot find module './schema.js'`
-- 原因：`seeddata.js` 第 4 行 `require('./schema.js')`，但文件实际位于 `models/schema.js`；且第 5 行连接串硬编码为 `'***'` 占位符，不读取 `.env` 中的 `MONGODB_URI`。
-- 影响：新成员按 README 指引无法一键初始化数据库。
+**4.1 `npm run seed` doesn't run.**
+`Error: Cannot find module './schema.js'`. Line 4 of `seeddata.js` does `require('./schema.js')` but the file lives at `models/schema.js`. On top of that, line 5 hardcodes the connection string as `'***'` instead of reading `MONGODB_URI` from `.env`. Anyone following the README right now cannot set up the database in one step.
 
-**4.2 图书增删改写操作无登录保护**
-- 现象（实测）：未登录（无任何 Cookie）直接 `POST /books` → 返回 302 且图书成功写入；未登录 `POST /books/:id/delete` → 图书被删除。
-- 原因：`app.js` 中 `indexRouter` 挂载在 `/` 且未挂 `requireAuth`，`routes/index.js` 内部对 `/books` 系列路由无鉴权（代码注释 T12 已提示「Teammates protect their own CRUD routers」，但未落实）。
-- 影响：任何匿名访问者可篡改/删除馆藏数据，不符合「Admin 管理图书」的设计意图。
+**4.2 Book create/edit/delete has no login protection.**
+Verified by hand: with no cookie at all, `POST /books` returns 302 and the book is actually created; `POST /books/:id/delete` deletes the book. The cause is that `app.js` mounts `indexRouter` at `/` without `requireAuth`, and the `/books` routes inside `routes/index.js` don't check the session either. There is a comment in the code (T12) saying teammates should protect their own CRUD routers, but it never happened. Any anonymous visitor can wipe the catalogue, which is clearly not what we designed.
 
-### ⚠️ 中等（P2）
+### P2 — Medium
 
-**4.3 注册功能前后端校验不一致（大写用户名）**
-- 现象（实测）：`POST /auth/signup` 提交 `username=BADUSER` → 服务端将其静默转小写为 `baduser` 并注册成功（302）；而前端表单 `pattern="[a-z0-9]+"` 会直接拦截大写。
-- 建议：服务端改为拒绝并返回 400，或前端提示「将自动转为小写」，二选一保持一致。
+**4.3 Sign-up validation differs between front end and back end (uppercase usernames).**
+`POST /auth/signup` with `username=BADUSER` goes through — the server silently lowercases it to `baduser` and returns 302, while the form's `pattern="[a-z0-9]+"` would have blocked it in the browser. Either reject it server-side with a 400, or tell the user it will be lowercased. Right now the two ends disagree.
 
-**4.4 密码明文存储**
-- `routes/auth.js` 注释已声明「与课程共享 schema 及种子账号保持一致」，属于已知设计取舍；建议测试二阶段评估 bcrypt 哈希改造。
+**4.4 Passwords are stored in plain text.**
+The comment in `routes/auth.js` says this is intentional to stay consistent with the shared course schema and the seeded accounts. We think it's fine for now, but it should be re-looked at in Test 2 (bcrypt).
 
-**4.5 依赖漏洞（npm audit：3 个）**
-- 1 个 **high**：`mongoose 9.0.0 – 9.11.3`（运行 `npm audit fix` 可修复）
-- 2 个 **moderate**：含 `minimatch 7.0.0 – 11.0.0`（DoS 风险）
+**4.5 Dependency vulnerabilities (npm audit: 3 found).**
+One **high**: `mongoose 9.0.0 – 9.11.3` (fix with `npm audit fix`). Two moderate, including `minimatch 7.0.0 – 11.0.0` (DoS via glob amplification).
 
-### ℹ️ 低（P3）
+### P3 — Minor
 
-**4.6 会话 Cookie 安全属性**
-- 实测 `Set-Cookie`：`httponly` ✓、`samesite=lax` ✓；无 `Secure` 标志——因本地非生产环境（`NODE_ENV !== 'production'`），属预期行为，需在 Ubuntu 部署后复测。
-- cookie 内容为 Base64（cookie-session 默认仅签名、不加密），登录后可解码出用户名与姓名，不含密码，风险可接受但应知晓。
+**4.6 Session cookie flags.**
+From the actual `Set-Cookie` header: `httponly` is on, `samesite=lax` is on. There's no `Secure` flag, which is expected locally since `NODE_ENV` isn't `production` — we need to re-check this after deploying to the Ubuntu VM. Also worth knowing: the cookie body is just Base64 (cookie-session signs but doesn't encrypt), so the username and display name can be decoded after login. No password inside, so the risk is acceptable, but everyone should be aware of it.
 
-**4.7 借阅/预约业务完全未实现**（详见第五节符合度评估）
+**4.7 Borrowing / reservation features are entirely missing.** Covered in section 5.
 
-## 五、重点 1：项目是否符合初期要求（主题符合度）
+## 5. Focus 1: does the project meet the original requirements?
 
-对照项目初期目标（README Project Overview / Objectives / Business Features Overview）：
+Checked against the README's Project Overview / Objectives / Business Features Overview.
 
-### 5.1 技术栈符合度 —— ✅ 完全符合
+### 5.1 Tech stack — yes, fully on track
 
-| 初期要求 | 实测结果 |
+| Requirement | Result |
 | --- | --- |
-| Express.js 服务端 | ✓ Express 5.3，路由分层清晰（routes/ 5 个模块） |
-| MongoDB + Mongoose | ✓ 实测连通 Atlas 云数据库，读写正常 |
-| EJS 模板 | ✓ 页面均正常渲染（home / auth / books / dashboard） |
-| cookie-session 认证 | ✓ 注册/登录/登出/会话保持全部通过 |
-| RESTful API（免鉴权，供 curl 测试） | ✓ `/api/items` CRUD 8 项全部通过 |
-| Facebook OAuth（Lecture 9 可选项） | ✓ 未配置时优雅降级（302 → `oauth=unconfigured`），不报错 |
+| Express.js server | Yes — Express 5.3, routes split into 5 modules under routes/ |
+| MongoDB + Mongoose | Yes — connected to Atlas and read/write works |
+| EJS templates | Yes — home / auth / books / dashboard all render fine |
+| cookie-session auth | Yes — sign-up, login, logout and session persistence all passed |
+| Unauthenticated RESTful API (for curl) | Yes — all 8 cases on `/api/items` passed |
+| Facebook OAuth (Lecture 9, optional) | Yes — degrades gracefully when not configured (302 to `oauth=unconfigured`), no crash |
 
-### 5.2 业务功能符合度 —— ⚠️ 部分符合（约 1/3）
+### 5.2 Business features — only partly there (roughly a third)
 
-对照 README「Business Features Overview」的 6 项学生功能：
+Against the six student features listed in the README:
 
-| # | 学生功能 | 状态 | 实测依据 |
+| # | Student feature | Status | Evidence |
 | --- | --- | --- | --- |
-| 1 | Login and logout | ✅ 已实现 | B1–B7 全部通过 |
-| 2 | Browse all books list | ✅ 已实现 | A 组 `/books` 200，3 本种子书正常展示（含搜索） |
-| 3 | Borrow available books | ❌ 未实现 | 无 Borrowing 模型/路由/页面 |
-| 4 | View personal borrowings（剩余天数/续借） | ❌ 未实现 | 同上 |
-| 5 | 缺货时提交预约 | ❌ 未实现 | 无 Reservation 模型/路由 |
-| 6 | 查看个人预约记录 | ❌ 未实现 | 同上 |
+| 1 | Login and logout | Done | B1–B7 all passed |
+| 2 | Browse all books list | Done | Group A, `/books` returns 200 with the 3 seed books (search works too) |
+| 3 | Borrow available books | Not started | No Borrowing model, route, or page |
+| 4 | View personal borrowings (days left, renewal) | Not started | Same |
+| 5 | Reserve when out of stock | Not started | No Reservation model or route |
+| 6 | View reservation records | Not started | Same |
 
-另：Admin（图书管理、处理归还）角色未实现——`User` schema 无 `role` 字段；图书管理目前对所有用户（含匿名）开放（问题 4.2）。
+The Admin side (managing books, handling returns) isn't implemented either — the `User` schema has no `role` field, and book management is currently open to everyone including anonymous visitors (issue 4.2).
 
-### 5.3 结论
+### 5.3 Conclusion
 
-项目**方向与主题完全一致**，已完成「图书管理 + 用户认证 + RESTful API」的 MVP 底座，工程质量整体良好；但**图书馆核心业务（借阅/续借/归还/预约）与角色权限体系尚未开始**，距离初期规划的业务范围尚有约 2/3 差距。当前状态与 README 徽章 `status: in progress` 相符。
+The project is firmly on theme and has a solid MVP base: book management, user authentication, and a RESTful API, with decent code quality overall. But the actual library business logic — borrowing, renewal, returns, reservations — and the role system haven't been started, so we're about two thirds away from what we planned. This matches the `status: in progress` badge in the README.
 
-## 六、重点 2：云计算相关功能与用户用例
+## 6. Focus 2: cloud-related features and user cases
 
-### 6.1 服务端云计算相关功能检查
+### 6.1 Server-side / cloud features check
 
-| 能力 | 状态 | 实测依据 |
+| Capability | Status | Evidence |
 | --- | --- | --- |
-| 云数据库（DBaaS）接入 | ✅ | Atlas SRV 连接串实测连通，读写/建库/种子全部成功 |
-| 环境变量配置（12-factor） | ✅ | dotenv + `.env.example` 模板齐全；`config/db.js` 从 `MONGODB_URI` 读取，无秘钥入库（`.env` 在 `.gitignore` 中） |
-| 健康检查端点 | ✅ | `GET /health` → `{"status":"ok"}`，可供云平台探活 |
-| 生产环境适配 | ⚠️ 部分 | `app.set('trust proxy', 1)` 已设置；session `secure` 仅在 `NODE_ENV=production` 启用（本地未生效，需部署后复测） |
-| 云端部署（Ubuntu VM） | ❌ 未见 | 仓库无部署脚本/文档（无 Dockerfile / systemd / nginx 说明），课程目标中的 Ubuntu 部署尚未落地 |
+| Cloud database (DBaaS) | Yes | Atlas SRV connection worked; reads, writes and seeding all fine |
+| Environment-based config (12-factor) | Yes | dotenv + `.env.example` template; `config/db.js` reads `MONGODB_URI`; no secrets in the repo (`.env` is gitignored) |
+| Health check endpoint | Yes | `GET /health` returns `{"status":"ok"}` — usable for cloud probes |
+| Production readiness | Partly | `app.set('trust proxy', 1)` is set; the session `secure` flag only turns on with `NODE_ENV=production`, so it hasn't been exercised yet |
+| Cloud deployment (Ubuntu VM) | Not there yet | No deployment script or docs in the repo (no Dockerfile / systemd / nginx notes); the Ubuntu deployment from the course objectives is still to do |
 
-### 6.2 用户用例测试结果
+### 6.2 User case results
 
-- **访客用例**：浏览首页/图书列表/搜索 ✅；访问受保护页被引导至登录页 ✅
-- **学生用例**：注册→自动登录→进入仪表盘 ✅；错误密码拒绝 ✅；登出后会话失效 ✅；重复用户名拒绝（409）✅
-- **异常用例**：非法搜索字段 400 ✅；非法年份 400 ✅；不存在的图书/路径 404 ✅；API 缺参 400 / 无效 id 404 ✅
+- Visitor: browsing the homepage / book list / search works; protected pages redirect to login. Passed.
+- Student: register → auto login → dashboard passed; wrong password rejected; logout kills the session; duplicate username rejected (409). Passed.
+- Edge cases: bad search field 400; bad year 400; missing book / unknown path 404; API missing field 400, bad id 404. All passed.
 
-## 七、第二步测试（测试二）范围建议
+## 7. What Test 2 should cover
 
-以下内容建议在对应功能开发完成后，作为「测试二」的测试范围：
+Once the corresponding features are built, we suggest Test 2 includes:
 
-1. **用户角色（User Roles）**
-   - User schema 增加 `role` 字段后的注册/种子数据回归
-   - Admin 与 Student 的访问控制矩阵：图书增删改仅 Admin 可用；学生端仅浏览/借阅
-   - 回归验证本报告问题 4.2（匿名写操作）修复后所有图书路由的鉴权行为
-2. **用户功能（User Features，对应 Business Features 3–6）**
-   - 借书流程：可借库存扣减、无库存时禁止借出
-   - 个人借阅列表：剩余归还天数计算、到期/逾期边界
-   - 续借：次数限制、逾期后禁止续借
-   - 预约：缺货预约提交、预约记录查看、到书通知逻辑（若实现）
-   - Admin 处理归还流程
-3. **安全加固回归**
-   - 图书路由挂载 `requireAuth` + Admin 角色校验
-   - 密码哈希（bcrypt）改造后登录/注册/种子账号回归
-   - `npm audit fix` 后依赖漏洞清零
-   - 修复 `seeddata.js`（require 路径 + 连接串读取 .env）后一键初始化回归
-   - 注册大小写校验一致性（问题 4.3）
-4. **云端部署测试（课程目标）**
-   - Ubuntu VM 部署：Node 运行时、进程守护（systemd/pm2）、防火墙
-   - 反向代理（nginx）与 HTTPS，复测 Secure Cookie
-   - `NODE_ENV=production` 下错误信息脱敏（errorHandler 已实现，需实测）
-   - Atlas Network Access 最小化（从 0.0.0.0/0 收敛为服务器 IP）
-   - `/health` 作为负载探活的可用性验证
+1. **User roles**
+   - Regression on registration and seed data after the `role` field is added to the User schema
+   - An access-control matrix for Admin vs Student: book add/edit/delete should be Admin-only; students only browse and borrow
+   - Re-test issue 4.2 on every book route after the fix lands
+2. **User features (Business Features 3–6)**
+   - Borrowing: stock goes down, out-of-stock books can't be borrowed
+   - Personal borrowing list: remaining-days calculation, due/overdue boundaries
+   - Renewal: limits on how many times, no renewal after overdue
+   - Reservations: submit when out of stock, view records, notification if implemented
+   - Admin handling returns
+3. **Security regression**
+   - Book routes behind `requireAuth` + Admin role check
+   - Login/registration/seed regression after moving to bcrypt
+   - Dependency vulnerabilities cleared after `npm audit fix`
+   - `seeddata.js` fixed (require path + reading the URI from `.env`), then re-run the one-step setup
+   - The username case-handling inconsistency (4.3)
+4. **Cloud deployment testing (course objective)**
+   - Ubuntu VM: Node runtime, process manager (systemd/pm2), firewall
+   - nginx reverse proxy + HTTPS, then re-check the Secure cookie flag
+   - Error message sanitising under `NODE_ENV=production` (errorHandler already supports it, needs a live check)
+   - Tighten Atlas Network Access from 0.0.0.0/0 down to the server IP
+   - Confirm `/health` works as a liveness probe
 
-## 八、附件
+## 8. Attachments
 
-- 测试明细数据（A–E 组 42 项用例逐项结果与原始响应）：见 [03-frontend-backend-integration-report.md](./03-frontend-backend-integration-report.md)
-- 代码质量评估：见 [02-code-quality-report.md](./02-code-quality-report.md)
+- Full case-by-case results with raw responses: [03-frontend-backend-integration-report.md](./03-frontend-backend-integration-report.md)
+- Code quality review: [02-code-quality-report.md](./02-code-quality-report.md)
