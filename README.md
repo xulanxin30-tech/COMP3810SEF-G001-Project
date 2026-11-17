@@ -123,6 +123,39 @@ This is a CSS static file to style a simple book website.
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
+<summary>📂 auth </summary>
+<details>
+<summary>▫️ login.ejs</summary>
+This is an EJS login page for our library system:
+
+- It loads the shared navbar and footer.
+- It shows a login form with username and password inputs.
+- Username only allows lowercase letters and numbers.
+- If there are error messages, it will show them on top.
+- There is an optional Facebook login button — it only appears when Facebook OAuth is set up.
+- It has a link to the sign-up page for new users.
+- It uses your style.css file for styling.
+</details>
+
+<details>
+<summary>▫️  signup.ejs</summary>
+This is an EJS signup page for the library system:
+  
+- It uses the shared navbar and footer.
+- It can show error messages sent from the backend.
+- The form sends data by POST to /auth/signup.
+- Input fields: 1. Full Name (required) 2. Username: only lowercase letters and numbers (required) 3. Password: must have at least one letter and one number (required)
+- It has a link to jump to the login page if the user already has an account.
+- It links to the style sheet for page styling.
+</details>
+
+</details>
+
+
+
+<details>
+<summary>📂 books </summary>
+<details>
 <summary>▫️delete.ejs</summary>
 This is the confirmation page for deleting a book.
   
@@ -169,16 +202,16 @@ This is the book search page for the library system.
 </details>
 
 <details>
-<summary>▫️ login.ejs</summary>
-This is an EJS login page for our library system:
+<summary>▫️  create.ejs</summary>
+This is the page to add a new book to the library system.
+  
+- It shares the navbar and footer.
+- The form sends data with POST to /books.
+- Fields: 1. Book Title (required) 2. Author (required) 3. Category 4. Publisher 5. Publish Year (number input)
+- It has an Add Book submit button and a cancel link to go back to the books list page /books.
 
-- It loads the shared navbar and footer.
-- It shows a login form with username and password inputs.
-- Username only allows lowercase letters and numbers.
-- If there are error messages, it will show them on top.
-- There is an optional Facebook login button — it only appears when Facebook OAuth is set up.
-- It has a link to the sign-up page for new users.
-- It uses your style.css file for styling.
+</details>
+
 </details>
 
 
@@ -192,19 +225,6 @@ This is an EJS view file for the protected user dashboard page.
 - It uses auth.css for styling.
 </details>
 
-<details>
-<summary>▫️  signup.ejs</summary>
-This is an EJS signup page for the library system:
-  
-- It uses the shared navbar and footer.
-- It can show error messages sent from the backend.
-- The form sends data by POST to /auth/signup.
-- Input fields: 1. Full Name (required) 2. Username: only lowercase letters and numbers (required) 3. Password: must have at least one letter and one number (required)
-- It has a link to jump to the login page if the user already has an account.
-- It links to the style sheet for page styling.
-
-
-</details>
 
 <details>
 <summary>▫️  home.ejs</summary>
