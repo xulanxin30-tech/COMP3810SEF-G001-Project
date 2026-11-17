@@ -118,6 +118,17 @@ This is a CSS static file to style a simple book website.
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
+<summary>▫️  create.ejs</summary>
+This is the page to add a new book to the library system.
+  
+- It shares the navbar and footer.
+- The form sends data with POST to /books.
+- Fields: 1. Book Title (required) 2. Author (required) 3. Category 4. Publisher 5. Publish Year (number input)
+- It has an Add Book submit button and a cancel link to go back to the books list page /books.
+
+</details>
+
+<details>
 <summary>▫️ dashboard.ejs</summary>
 This is an EJS view file for the protected user dashboard page.
 
@@ -137,8 +148,8 @@ This is a homepage file for a library website, written using EJS.
 - There is a button you can click to see all the books.
 - It uses a CSS file to make the page look nice.
 
-
 </details>
+
 
 ### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
 
