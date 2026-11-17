@@ -65,6 +65,10 @@ We are building a server-side web application for a student library book managem
 
 
 ## 🚀Project file intro:
+### ➡️[config](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/config):
+
+### ➡️[middleware](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/middleware):
+
 ### ➡️[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
 
 
@@ -114,54 +118,23 @@ This is a CSS static file to style a simple book website.
 - It also has a simple footer and dividing lines for the login page.
 </details>
 
+### ➡️[routes](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/routes):
 
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 <details>
-<summary>▫️delete.ejs</summary>
-This is the confirmation page for deleting a book.
-  
-- Reuses the shared navbar and footer.
-- Shows the book’s title, author and category for confirmation.
-- Submits a POST request to /books/<%= book._id %>/delete to remove the book.
-- Includes a Confirm Delete button and a cancel link to return to the book list page /books.
+<summary>▫️ login.ejs</summary>
+This is an EJS login page for our library system:
+
+- It loads the shared navbar and footer.
+- It shows a login form with username and password inputs.
+- Username only allows lowercase letters and numbers.
+- If there are error messages, it will show them on top.
+- There is an optional Facebook login button — it only appears when Facebook OAuth is set up.
+- It has a link to the sign-up page for new users.
+- It uses your style.css file for styling.
 </details>
 
-<details>
-<summary>▫️edit.ejs</summary>
-This page is used to edit existing book information.
-  
-- Reuses the shared navbar and footer.
-- The form is pre-filled with the current book data.
-- Fields:1. Book Title (required) 2. Author (required) 3. Category 4. Publisher 5. Publish Year
-- Submits updated data via POST to /books/<%= book._id %>/edit.
-- Has a Save Changes button and a cancel link to go back to the book list /books.
-</details>
-
-<details>
-<summary>▫️list.ejs</summary>
-This page displays all books in the library system.
-  
-- Reuses the shared navbar and footer.
-- Provides two buttons: Add New Book (/books/new) and Search Books (/books/search).
-- Shows book information in a table: title, author, category, publisher and publish year.
-- Each book has Edit and Delete links.
-- If there are no books, it shows the message "No books available."
-- Users can manage all books from this page.
-</details>
-
-<details>
-<summary>▫️ search.ejs</summary>
-This is the book search page for the library system.
-  
-- Reuses the shared navbar and footer.
-- The form uses GET method to send search requests to /books/search.
-- Users can choose a search field: title, author, category, publisher or publish year.
-- It keeps the previous search option and keyword after submitting.
-- Displays matching books in a table with Edit and Delete links.
-- Shows the number of matched books, or a message if no books are found.
-- Has a Clear button to reset the search and a link to return to the book list.
-</details>
 
 <details>
 <summary>▫️ dashboard.ejs</summary>
@@ -171,6 +144,20 @@ This is an EJS view file for the protected user dashboard page.
 - It explains that unauthenticated users will be sent to the login page by the requireAuth middleware.
 - It provides a logout button and a link to go back to the homepage.
 - It uses auth.css for styling.
+</details>
+
+<details>
+<summary>▫️  signup.ejs</summary>
+This is an EJS signup page for the library system:
+  
+- It uses the shared navbar and footer.
+- It can show error messages sent from the backend.
+- The form sends data by POST to /auth/signup.
+- Input fields: 1. Full Name (required) 2. Username: only lowercase letters and numbers (required) 3. Password: must have at least one letter and one number (required)
+- It has a link to jump to the login page if the user already has an account.
+- It links to the style sheet for page styling.
+
+
 </details>
 
 <details>
