@@ -65,6 +65,10 @@ We are building a server-side web application for a student library book managem
 
 
 ## 🚀Project file intro:
+### ➡️[config](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/config):
+
+### ➡️[middleware](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/middleware):
+
 ### ➡️[server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js):
 
 
@@ -114,6 +118,7 @@ This is a CSS static file to style a simple book website.
 - It also has a simple footer and dividing lines for the login page.
 </details>
 
+### ➡️[routes](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/routes):
 
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
