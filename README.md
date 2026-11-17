@@ -170,8 +170,8 @@ This is a homepage file for a library website, written using EJS.
 - There is a button you can click to see all the books.
 - It uses a CSS file to make the page look nice.
 
-
 </details>
+
 
 ### ➡️[models](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/models):
 
