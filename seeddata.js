@@ -1,18 +1,26 @@
-//if you want to run type npm run seed
-
+// if you want to run type npm run seed
+require('dotenv').config(); // 加载 .env 环境变量
 const mongoose = require('mongoose');
-const { User, Book } = require('./schema.js');
-mongoose.connect('***') //put your own mongoose driver here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// 修复路径：schema.js 在 models 文件夹下
+const { User, Book } = require('./models/schema');
+
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log(' MongoDB connected successfully');
   runTest();
 })
 .catch(error => {
   console.log(' Failed to connect to MongoDB: ', error);
+  process.exit(1);
 });
 
 async function runTest() {
   try {
+    //Clear data, avoid repetition
+    await User.deleteMany({});
+    await Book.deleteMany({});
+    console.log('✅ Old collections cleared');
+
     const stu1 = new User({
       username: "s0000001",
       password: "sz212345",
@@ -66,8 +74,13 @@ async function runTest() {
     });
     await book3.save();
     console.log(`book:${book3.title} saved`);
-    
+
+    console.log('\n🎉 All seed data inserted!');
   } catch (error) {
     console.log('Error: ', error.message);
+  } finally {
+  
+    await mongoose.disconnect();
+    console.log('🔌 MongoDB connection closed');
   }
 }
