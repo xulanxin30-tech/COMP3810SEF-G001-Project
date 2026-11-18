@@ -102,7 +102,7 @@ function logoutHandler(req, res) {
   const hadSession = !!(req.session && req.session.user)
   req.session = null
   if (wantsJson(req)) return res.json({ message: 'Logged out' })
-  if (handSession) return res.redirect('auth/logout')
+  if (hadSession) return res.redirect('/auth/logout')
   return res.redirect('/')
 }
 router.post('/logout', logoutHandler)
