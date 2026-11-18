@@ -259,3 +259,17 @@ body {
     border-radius: 5px;
     padding: 10px;
 }
+
+.logout-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.logout-actions .button {
+    display: block;
+    width: 200px;
+    text-align: center;
+}
