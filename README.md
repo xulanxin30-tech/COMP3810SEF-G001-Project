@@ -153,7 +153,8 @@ View layer: EJS templates, grouped by page type.
 | [dashboard.ejs](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/views/dashboard.ejs) | Logged-in dashboard: welcome message, logout button and link back to homepage. |
 | 📂 [auth/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/auth) | Login and sign-up pages. |
 | 📂 [books/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/books) | Book management pages (list / create / edit / delete / search). |
-
+| 📂 [oauth/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/oauth) |  The user information page after successful login |
+| 📂 [partials/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/partials) | a dynamic navigation bar and a footer for the library system |
 <details>
 <summary>📂 auth/ — login & sign-up pages</summary>
 
@@ -171,6 +172,18 @@ View layer: EJS templates, grouped by page type.
 - **delete.ejs** — Delete confirmation page showing the book's details before removing it.
 - **search.ejs** — Search by title / author / category / publisher / publish year; shows the number of matches.
 
+</details>
+<details>
+<summary>📂 oauth/ — The user information page after successful login</summary>
+
+- **content.ejs** — Show the signed-in user’s profile info (ID and name), provide a logout link for Facebook auth, and a link to return to the regular username/password login page.
+</details>
+<details>
+<summary>📂 partials/ — a dynamic navigation bar and a footer for the library system.
+</summary>
+
+- **footer.ejs** — simple footer component for the Library Management System, displaying the system name.
+- **navbar.ejs** — shows welcome + logout for logged-in users or login + signup links for guests, alongside home and books navigation entries for the library system.
 </details>
 
 ### ➡️[public](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/public):
