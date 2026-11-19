@@ -39,10 +39,34 @@ const bookSchema = new mongoose.Schema({
 });
 const Book = mongoose.model('Book', bookSchema);
 
+// Item is the document stored by the RESTful API (routes/api.js).
+// curl -> Express router -> Mongoose model -> MongoDB collection `items`.
+const itemSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      trim: true
+    },
+    completed: {
+      type: Boolean,
+      default: false
+    }
+  },
+  { timestamps: true }
+);
 
+// Keep the original API contract: responses expose `id` (the MongoDB _id as a
+// string) rather than `_id` / `__v`, so existing curl examples still make sense.
+itemSchema.set('toJSON', {
+  versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = doc._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+const Item = mongoose.model('Item', itemSchema);
 
-
-
-
-
-module.exports = { User, Book};
+module.exports = { User, Book, Item };
