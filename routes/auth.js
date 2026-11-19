@@ -106,7 +106,12 @@ function logoutHandler(req, res) {
   return res.redirect('/')
 }
 router.post('/logout', logoutHandler)
-router.get('/logout', logoutHandler)
+router.get('/logout', (req, res) => {
+  req.session = null
+  res.locals.user = null
+  res.locals.currentUser = null
+  return res.render('auth/logout')
+})
 
 // Convenience API: who am I?
 router.get('/me', (req, res) => {
