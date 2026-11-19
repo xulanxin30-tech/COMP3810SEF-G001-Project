@@ -18,34 +18,29 @@
 
 
 ## 👁️‍🗨️Project Overview:
-We are building a server-side web application for a student library book management system using Express.js, MongoDB, and EJS. It matters because it demonstrates practical server-side technologies, authentication, and RESTful API design. The system is designed for university students (as borrowers) and librarians (as administrators).
+We are building a server-side web application for a student library management system.
 
 ### ➡️Objectives
 
 - Implement core CRUD operations for book records and borrowing management.
-- Develop cookie-session based authentication with Admin and Student roles.
+- Develop cookie-session based authentication with Student roles.
 - Deploy the application on an Ubuntu virtual machine and provide RESTful APIs.
 
 ### ➡️Scope
 
-**In scope:**
 - User authentication (cookie-session) for Student roles.
-- Admin features: Book CRUD operations, viewing borrowing records, processing returns.
-- Student features: Browsing books, borrowing, returning/renewing, and reserving out-of-stock books.
+- Student features: 重写.
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
 - Deployment and demonstration on an Ubuntu virtual machine.
-
-**Out of scope:**
-- Complex UI/UX designs or frontend frameworks (e.g., React/Vue).
-- Advanced library features like fines/payments or automated email notifications.
+- Complex UI/UX designs or frontend frameworks.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
-- Native mobile application development.
+
 
 ### ➡️Business Features Overview:
 
 **Student：**
 1. Login and logout
-2. Browse all books list
+2. see all books list
 3. Borrow available books
 4. View personal borrowings: display remaining return days, perform renewal
 5. Submit a reservation when book stock is unavailable
