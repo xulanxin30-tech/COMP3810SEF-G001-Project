@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Book - Library Management System</title>
+    <title>Return Book - Library Management System</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -11,9 +11,9 @@
     <%- include('../partials/navbar') %>
 
     <main class="container">
-        <h1>Delete Book</h1>
+        <h1>Returning Book</h1>
 
-        <p>Are you sure you want to delete this book?</p>
+        <p>Are you sure you want to return this book?</p>
 
         <div class="delete-details">
             <p><strong>Title:</strong> <%= book.title %></p>
@@ -21,9 +21,10 @@
             <p><strong>Category:</strong> <%= book.category || '-' %></p>
         </div>
 
-        <form action="/books/<%= book._id %>/delete" method="POST">
+        <form action="/books/<%= book._id %>/delete" method="POST"
+         onsubmit="return confirm('Is it this book that needs to be returned?');">
             <button type="submit" class="delete-button">
-                Confirm Delete
+                Confirm Return
             </button>
 
             <a href="/books" class="cancel-link">Cancel</a>
