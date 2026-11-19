@@ -5,7 +5,6 @@
 ![Course](https://img.shields.io/badge/course-COMP3810SEF-blue)
 
 
-
 ## Course Information:
 
 | Field | Value |
@@ -18,26 +17,35 @@
 
 
 ## 👁️‍🗨️Project Overview:
-We are building a server-side web application for a student library management system.
+- This project is a Student-Library Book Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.
+- It provides a web-based system for users to register, log in, browse, search book records, manage book information, etc.
+- It provides RESTful API endpoints that can be tested using CURL commmands.
+
 
 ### ➡️Objectives
-
 - Implement core CRUD operations for book records and borrowing management.
 - Develop cookie-session based authentication with Student roles.
 - Deploy the application on an Ubuntu virtual machine and provide RESTful APIs.
 
-### ➡️Scope
 
-- User authentication (cookie-session) for Student roles.
-- Student features: 重写.
+### ➡️Scope
+- User authentication (cookie-session) for Student roles. 
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
 - Deployment and demonstration on an Ubuntu virtual machine.
 - Complex UI/UX designs or frontend frameworks.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
 
+** Student Features **
+- Students can create an account by providing their username and password.
+- Registered users can log in with their username and password. Also, cookie-session can maintain their login sesson.
+- Users can log out which cleans the current session.
+- After login, users can open a dashboard displaying their account name and username.
+- Users can browser the book list and view each book's details.
+- Users can search for books by title, author, year, etc.
+- Books pages provide forms to add, edit, delete book records. These functions provides basic online account and book-record management.
+
 
 ### ➡️Business Features Overview:
-
 **Student：**
 1. Login and logout
 2. see all books list
@@ -45,6 +53,7 @@ We are building a server-side web application for a student library management s
 4. View personal borrowings: display remaining return days, perform renewal
 5. Submit a reservation when book stock is unavailable
 6. View personal reservation records
+
 
 ## 🧑‍💻Team Members:
 
@@ -56,7 +65,6 @@ We are building a server-side web application for a student library management s
 | 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
 | 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods|
-
 
 
 ## 🚀Project file intro:
@@ -84,6 +92,7 @@ COMP3810SEF-G001-Project/
 | [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`, OAuth). |
 | [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
 | [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
+| [.env.example] (https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application; MongoDB connection string, session secret, server port. |
 
 <details>
 <summary> 📦 dependencies</summary>
@@ -214,10 +223,66 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 
 
 ## 🧪Operation guides:
-### ➡️Use of Login/Logout pages:
+** General **
+- Download the project from GitHub, like 'git clone' the folder.
+- Open the folder in the Ubuntu Terminal.
+- Install the required dependencies using 'npm install'.
+- Create a .env file and configure the MongoDB connection and session secret.
+- npm start
+- Open http://localhost:3000 in firefox.
+- Register an account or log in with an existing account.
+- Browse, search, manage book records.
+- Test the RESTful API endpoints using CURL in the second terminal.
 
+### ➡️Use of Login/Logout pages:
+** Sign up **
+- Open the homepage and click Sign up in the navigation bar.
+- Enter the username and password.
+- Username should contain lowercase letters and numbers only.
+- Password must contain at least one letter and one number.
+- Click Sign Up to submit the registration form.
+- After successful registration, go to the login page.
+
+** Login ""
+- Click Login in the navigation bar.
+- Enter the registered username and password.
+- Click Login to submit the form.
+- After successful login, the user will be redirected to the dashboard.
+
+** Logout ""
+1. Click Logout in the navigation bar.
+2. The application clears the current login session.
+3. the user can log in again using the registered account.
 
 ### ➡️Use of CRUD web pages:
+** Read: View all books **
+- Click Books in the navigation bar.
+- open /books to view the book list.
+- Show the book's details.
+
+** Create: Add a new book **
+- Open /books/new or click Add New Book on the book list page.
+- Enter the book's details.
+- Click the submit to add the book
+
+** Update: Edit a book **
+- Open the book list page.
+- Find the book if the user wants to change and click Edit.
+- Modify the book information.
+- Submit the form to save the changes.
+
+** Delete: Remove a book **
+- Open the book list page.
+- Find the books if the user wants to remove and click Delete.
+- Check the book information on the confirmation page.
+-  Confirm the delete to remove the books record.
+
+** Search: Find books **
+- Open /books/search or click Search Books.
+- Select a search type, such as title, author or caegory.
+- Enter the keyword and submit the form.
+- The application displays the matching book records.
+
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
 | ---- | ---- | ---- | ---- | ---- |
@@ -225,6 +290,21 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 | Create new item | Create | POST | `http://localhost:3000/api/items` | ```curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'``` |
 | Update item (id=1) | Update | PUT | `http://localhost:3000/api/items/1` | ```curl -X PUT http://localhost:3000/api/items/1 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
 | Delete item (id=1) | Delete | DELETE | `http://localhost:3000/api/items/1` | ```curl -X DELETE http://localhost:3000/api/items/1``` |
+
+
+### ➡️ Environment Configuration (.env):
+- The '.env' file stores environment settings required by the application.
+- It keeps the important configuration values, such as the MongoDB connection string and session secret.
+- Steup steps:
+- Copy '.env.example' to create a new '.env' file, then type 'cp .env.example .env', then type 'gedit .env'
+- Enter the MongoDB connection string and a session secret.
+- npm start
+
+
+### ➡️ Note about 'node_modules':
+- Thank you for your teaching. If you are marking our project, the node_modules folder is not included because you can install the required dependencies.
+- After downloading the project, all required packages can be installed by typing 'npm install'. 
+
 
 
 ## 💙Acknowledgements
