@@ -50,12 +50,12 @@ We are building a server-side web application for a student library management s
 
 | # | Name | Student ID | Github Username | Role | Responsibilities |
 |---|---|---|---|---|---|
-| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead | Scaffolding, routing, session setup, integration |
+| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead |Scaffolding, routing, session setup, integration, readme,curl test commands |
 | 2 | Chi Xuanyi | 13766798 | [@Felix13877](https://github.com/Felix13877) | Developer | Login & sign-up, session, access-control middleware |
-| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | README,Mongoose schemas, seed data |
+| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | Examine the code logic, README,Mongoose schemas, seed data |
 | 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
-| 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods, curl test commands❔|
+| 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods|
 
 
 
@@ -229,7 +229,9 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 
 ## 💙Acknowledgements
 
-This project is a group assignment for COMP3810SEF course for academic evaluation only.All code within this project is for educational purposes. Redistribution, commercial usage is prohibited without group members’ permission.We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code. We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation. Some online technical tutorials are referenced for debugging and problem‑solving. All core functionalities are implemented by our group members.
+This project is a group assignment for COMP3810SEF course for academic evaluation only. All code within this project is for educational purposes. Redistribution, commercial usage is prohibited without group members’ permission. 
+
+We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code. We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation. Some online technical tutorials are referenced for debugging and problem‑solving. All core functionalities are implemented by our group members.
 
 
 <!-- 
