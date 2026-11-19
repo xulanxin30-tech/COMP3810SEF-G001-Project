@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Book - Library Management System</title>
+    <title>Return Book - Library Management System</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
         <form action="/books/<%= book._id %>/delete" method="POST"
          onsubmit="return confirm('Is it this book that needs to be returned?');">
             <button type="submit" class="delete-button">
-                Confirm delete
+                Confirm Return
             </button>
 
             <a href="/books" class="cancel-link">Cancel</a>
