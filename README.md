@@ -166,7 +166,7 @@ View layer: EJS templates, grouped by page type.
 - **edit.ejs** — Edit-book form, pre-filled with the book's current data.
 - **delete.ejs** — Delete confirmation page showing the book's details before removing it.
 - **search.ejs** — Search by title / author / category / publisher / publish year; shows the number of matches.
-
+</details>
 <details>
 <summary>📂 partials/ — a dynamic navigation bar and a footer for the library system.
 </summary>
