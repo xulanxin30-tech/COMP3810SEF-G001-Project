@@ -50,12 +50,12 @@ We are building a server-side web application for a student library management s
 
 | # | Name | Student ID | Github Username | Role | Responsibilities |
 |---|---|---|---|---|---|
-| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead |Scaffolding, routing, session setup, integration, readme,curl test commands |
+| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead |Scaffolding, routing, session setup, integration, readme, curl test commands, API routes |
 | 2 | Chi Xuanyi | 13766798 | [@Felix13877](https://github.com/Felix13877) | Developer | Login & sign-up, session, access-control middleware |
-| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | Examine the code logic, README,Mongoose schemas, seed data |
-| 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
+| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | Examine the code logic, README, Mongoose schemas, seed data |
+| 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
-| 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods|
+| 6 | Wong Ching Fung❌ | 13886514 | [@PW](https://github.com/PW) | ❌free rider❌ |None|
 
 
 
