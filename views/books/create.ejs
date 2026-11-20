@@ -37,9 +37,14 @@
             </div>
 
             <div class="form-group">
-                <label for="publishYear">Publish Year</label>
-                <input type="number" id="publishYear" name="publishYear">
-            </div>
+                 <label for="publishYear">Publish Year</label>
+                 <input
+                  type="number"
+                  id="publishYear"
+                  name="publishYear"
+                  max="<%= new Date().getFullYear() %>"
+    >
+</div>
 
             <button type="submit" class="button">Add Book</button>
             <a href="/books" class="cancel-link">Cancel</a>
