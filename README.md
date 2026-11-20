@@ -150,7 +150,6 @@ View layer: EJS templates, grouped by page type.
 | [dashboard.ejs](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/views/dashboard.ejs) | Logged-in dashboard: welcome message, logout button and link back to homepage. |
 | 📂 [auth/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/auth) | Login and sign-up pages. |
 | 📂 [books/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/books) | Book management pages (list / create / edit / delete / search). |
-| 📂 [oauth/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/oauth) |  The user information page after successful login |
 | 📂 [partials/](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views/partials) | a dynamic navigation bar and a footer for the library system |
 <details>
 <summary>📂 auth/ — login & sign-up pages</summary>
