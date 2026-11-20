@@ -18,14 +18,12 @@
 
 
 ## 👁️‍🗨️Project Overview:
-- This project is a Student-Library Book Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.
-- It provides a web-based system for users to register, log in, browse, search book records, manage book information, etc.
+- This project is a Student-Library Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.
+- It provides a web-based system for users to sign in, login, borrow book, search book, update book information, returing book by implementing core CRUD operations.
 - It provides RESTful API endpoints that can be tested using CURL commands.
 
 
 ### ➡️Objectives
-
-- Implement core CRUD operations for book records and borrowing management.
 - Develop cookie-session based authentication with Student roles.
 - Deploy the application on an Ubuntu virtual machine and provide RESTful APIs.
 
@@ -37,7 +35,10 @@
 - Complex UI/UX designs or frontend frameworks.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
 
-**Student Features**
+
+### ➡️Business Features Overview:
+
+**Student：**
 - Students can create an account by providing their username and password.
 - Registered users can log in with their username and password. Also, cookie-session can maintain their login session.
 - Users can log out, which clears the current session.
@@ -45,17 +46,6 @@
 - Users can browse the book list and view each book's details.
 - Users can search for books by title, author, year, category, publish year, publisher.
 - Books pages provide forms to add, edit and delete book records. These functions provide basic online account and book-record management.
-
-
-### ➡️Business Features Overview:
-
-**Student：**
-1. Login and logout
-2. see all books list
-3. Borrow available books
-4. View personal borrowings: display remaining return days, perform renewal
-5. Submit a reservation when book stock is unavailable
-6. View personal reservation records
 
 ## 🧑‍💻Team Members:
 
@@ -223,7 +213,13 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 - It also styles links to switch between login and sign up.
 </details>
 
-
+### ➡️ Environment Configuration (.env):
+- The '.env' file stores environment settings required by the application.
+- It keeps important configuration values, such as the MongoDB connection string and session secret.
+- Setup steps:
+  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
+  - Enter the MongoDB connection string and a session secret.
+  - Run `npm start`
 
 ## 🧪Operation guides:
 Start the server first: type npm install, copy .env example to .env and fill in MONGODB_URI, then run npm seed (once) and npm start. 
@@ -281,13 +277,6 @@ This project is a group assignment for COMP3810SEF course for academic evaluatio
 We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code. We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation. Some online technical tutorials are referenced for debugging and problem‑solving. All core functionalities are implemented by our group members.
 
 
-### ➡️ Environment Configuration (.env):
-- The '.env' file stores environment settings required by the application.
-- It keeps important configuration values, such as the MongoDB connection string and session secret.
-- Setup steps:
-  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
-  - Enter the MongoDB connection string and a session secret.
-  - Run `npm start`.
 
 ### ➡️ Note about 'node_modules':
 - The node_modules folder is not included because all required dependencies can be installed from package.json.
