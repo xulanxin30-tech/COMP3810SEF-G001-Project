@@ -18,7 +18,10 @@
 
 
 ## 👁️‍🗨️Project Overview:
-We are building a server-side web application for a student library management system.
+- This project is a Student-Library Book Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.
+- It provides a web-based system for users to register, log in, browse, search book records, manage book information, etc.
+- It provides RESTful API endpoints that can be tested using CURL commands.
+
 
 ### ➡️Objectives
 
@@ -29,11 +32,19 @@ We are building a server-side web application for a student library management s
 ### ➡️Scope
 
 - User authentication (cookie-session) for Student roles.
-- Student features: 重写.
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
 - Deployment and demonstration on an Ubuntu virtual machine.
 - Complex UI/UX designs or frontend frameworks.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
+
+**Student Features**
+- Students can create an account by providing their username and password.
+- Registered users can log in with their username and password. Also, cookie-session can maintain their login session.
+- Users can log out, which clears the current session.
+- After login, users can open a dashboard displaying their account name and username.
+- Users can browse the book list and view each book's details.
+- Users can search for books by title, author, year, category, publish year, publisher.
+- Books pages provide forms to add, edit and delete book records. These functions provide basic online account and book-record management.
 
 
 ### ➡️Business Features Overview:
@@ -84,6 +95,7 @@ COMP3810SEF-G001-Project/
 | [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`, OAuth). |
 | [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
 | [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
+| [.env.example](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application: MongoDB connection string, session secret, server port. |
 
 <details>
 <summary> 📦 dependencies</summary>
@@ -252,6 +264,19 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 This project is a group assignment for COMP3810SEF course for academic evaluation only. All code within this project is for educational purposes. Redistribution, commercial usage is prohibited without group members’ permission. 
 
 We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code. We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation. Some online technical tutorials are referenced for debugging and problem‑solving. All core functionalities are implemented by our group members.
+
+
+### ➡️ Environment Configuration (.env):
+- The '.env' file stores environment settings required by the application.
+- It keeps important configuration values, such as the MongoDB connection string and session secret.
+- Setup steps:
+  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
+  - Enter the MongoDB connection string and a session secret.
+  - Run `npm start`.
+
+### ➡️ Note about 'node_modules':
+- The node_modules folder is not included because all required dependencies can be installed from package.json.
+- After downloading the project, run `npm install` to install them.
 
 
 <!-- 
