@@ -58,15 +58,16 @@
                 >
             </div>
 
-            <div class="form-group">
+           <div class="form-group">
                 <label for="publishYear">Publish Year</label>
                 <input
                     type="number"
                     id="publishYear"
                     name="publishYear"
                     value="<%= book.publishYear || '' %>"
-                >
-            </div>
+                    max="<%= new Date().getFullYear() %>"
+    >
+</div>
 
             <button type="submit" class="button">Save Changes</button>
             <a href="/books" class="cancel-link">Cancel</a>
