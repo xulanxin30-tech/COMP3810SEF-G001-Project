@@ -99,12 +99,19 @@ router.post('/login', requireGuest, async (req, res, next) => {
 
 // T11 - Logout (POST form or GET link) - clears the cookie session
 function logoutHandler(req, res) {
+  const hadSession = !!(req.session && req.session.user)
   req.session = null
   if (wantsJson(req)) return res.json({ message: 'Logged out' })
+  if (hadSession) return res.redirect('/auth/logout')
   return res.redirect('/')
 }
 router.post('/logout', logoutHandler)
-router.get('/logout', logoutHandler)
+router.get('/logout', (req, res) => {
+  req.session = null
+  res.locals.user = null
+  res.locals.currentUser = null
+  return res.render('auth/logout')
+})
 
 // Convenience API: who am I?
 router.get('/me', (req, res) => {

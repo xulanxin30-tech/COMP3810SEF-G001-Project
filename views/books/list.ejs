@@ -14,8 +14,8 @@
         <h1>Book List</h1>
         <p>View and manage library books.</p>
 
-        <a href="/books/new" class="button">Add New Book</a>
-        <a href="/books/search" class="button">Search Books</a>S
+        <a href="/books/new" class="button">Add New Book (Create)</a>
+        <a href="/books/search" class="button">Search Books (Read)</a>
         <table class="book-table">
             <thead>
                 <tr>
@@ -39,11 +39,11 @@
                             <td><%= book.publishYear || '-' %></td>
                             <td class="book-actions">
                                 <a href="/books/<%= book._id %>/edit">
-                                    Edit
+                                    Edit (Update)
                                 </a>
 
                                 <a href="/books/<%= book._id %>/delete">
-                                    Delete
+                                    Returning (delete)
                                 </a>
                             </td>
                         </tr>
