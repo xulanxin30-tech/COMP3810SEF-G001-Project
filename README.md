@@ -232,26 +232,27 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 - Enter a username (lowercase letters and numbers only) and a password that contains at least one letter and one number.
 - Click **Sign Up**, then log in with the new account; the login session is maintained by cookie-session.
 
-### ➡️Use of Login/Logout pages: 
+### ➡️Use of Login/Logout pages:
+
 | Username | Password | Name |
+| --- | --- | --- |
 | s0000001 | sz212345 | Zhang San |
 | s1397832 | Abc22222 | Xiao Ming |
 | s3780234 | Def33333 | Xiao Qiao |
 
-- Login steps:
-- Open http://localhost:3000 and click Login in the top navigation bar (or go to /auth/login).
-- Enter the username and password, then click the Login button.
-- On success you will be redirected to the dashboard (/dashboard), and the navigation bar shows Welcome, <your name> and a Logout link. On failure the page shows the error Invalid username or password.
-
-- Logout steps:
-- Click Logout in the navigation bar, or click the Log out button on the dashboard page. The session cookie is cleared and you are returned to the home page.
+| Action | Steps | Result |
+| --- | --- | --- |
+| Login | Open http://localhost:3000 and click **Login** in the top navigation bar (or go to `/auth/login`), enter the username and password, then click the **Login** button. | On success you are redirected to `/dashboard`, the navbar shows your name and a **Logout** link. On failure the page shows `Invalid username or password`. |
+| Logout | Click **Logout** in the navigation bar, or click the **Log out** button on the dashboard page. | The session cookie is cleared and you are returned to the home page. |
 
 ### ➡️Use of CRUD web pages:
+
 | CRUD | What to click | URI |
-| Create | Add New Book button, fill in the form, click Add Book	| /books/new
-| Read |	Books link in the navigation bar; Search Books button to search	/books, | /books/search
-| Update | Edit link in a book's row, change the fields, click Save Changes	| /books/<id>/edit
-| Delete	| Delete link in a book's row, then click Confirm Delete	| /books/<id>/delete
+| --- | --- | --- |
+| Create | Click **Add New Book**, fill in the form, then click **Add Book**. | `/books/new` |
+| Read | Click **Books** in the navigation bar to view all books; click **Search Books** to filter by title, author, category, publisher or publish year. | `/books`, `/books/search` |
+| Update | Click **Edit** in a book's row, change the fields, then click **Save Changes**. | `/books/<id>/edit` |
+| Delete | Click **Delete** in a book's row, then click **Confirm Delete**. | `/books/<id>/delete` |
 
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
