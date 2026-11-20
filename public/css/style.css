@@ -34,6 +34,10 @@ body {
     text-decoration: none;
 }
 
+.nav-links span {
+    color: white;
+}
+
 .nav-links a:hover {
     text-decoration: underline;
 }
