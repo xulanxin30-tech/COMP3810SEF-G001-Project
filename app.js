@@ -5,7 +5,6 @@ const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth')
 const apiRouter = require('./routes/api')
 const dashboardRouter = require('./routes/dashboard')
-const oauthRouter = require('./routes/oauth')
 const { attachCurrentUser, requireAuth } = require('./middleware/auth')
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler')
 
@@ -19,11 +18,9 @@ app.use(express.json())
 app.use(sessionConfig)
 app.use(attachCurrentUser)
 // Expose shared values to all EJS templates: the logged-in user (navbar) and
-// the OAuth availability flag (login page button). Injecting here means every
 // render path — including the POST /auth/login failure re-render — has it.
 app.use((req, res, next) => {
   res.locals.user = (req.session && req.session.user) || null
-  res.locals.facebookConfigured = oauthRouter.facebookConfigured
   next()
 })
 app.use('/', indexRouter)
@@ -32,8 +29,6 @@ app.use('/api', apiRouter)
 // T12: CRUD-style pages must be mounted with requireAuth, e.g.:
 //   app.use('/books', requireAuth, booksRouter)
 app.use('/dashboard', requireAuth, dashboardRouter)
-// L9 OAuth (Facebook) login option — scoped to its own routes inside routes/oauth.js
-app.use(oauthRouter)
 // Teammates protect their own CRUD routers the same way; the access-control
 // middleware lives in middleware/auth.js (requireAuth / requireGuest).
 app.use(notFoundHandler)
