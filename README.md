@@ -222,66 +222,6 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 
 
 
-## 🧪Operation guides:
-** General **
-- Download the project from GitHub, like 'git clone' the folder.
-- Open the folder in the Ubuntu Terminal.
-- Install the required dependencies using 'npm install'.
-- Create a .env file and configure the MongoDB connection and session secret.
-- npm start
-- Open http://localhost:3000 in firefox.
-- Register an account or log in with an existing account.
-- Browse, search, manage book records.
-- Test the RESTful API endpoints using CURL in the second terminal.
-
-### ➡️Use of Login/Logout pages:
-** Sign up **
-- Open the homepage and click Sign up in the navigation bar.
-- Enter the username and password.
-- Username should contain lowercase letters and numbers only.
-- Password must contain at least one letter and one number.
-- Click Sign Up to submit the registration form.
-- After successful registration, go to the login page.
-
-** Login ""
-- Click Login in the navigation bar.
-- Enter the registered username and password.
-- Click Login to submit the form.
-- After successful login, the user will be redirected to the dashboard.
-
-** Logout ""
-1. Click Logout in the navigation bar.
-2. The application clears the current login session.
-3. the user can log in again using the registered account.
-
-### ➡️Use of CRUD web pages:
-** Read: View all books **
-- Click Books in the navigation bar.
-- open /books to view the book list.
-- Show the book's details.
-
-** Create: Add a new book **
-- Open /books/new or click Add New Book on the book list page.
-- Enter the book's details.
-- Click the submit to add the book
-
-** Update: Edit a book **
-- Open the book list page.
-- Find the book if the user wants to change and click Edit.
-- Modify the book information.
-- Submit the form to save the changes.
-
-** Delete: Remove a book **
-- Open the book list page.
-- Find the books if the user wants to remove and click Delete.
-- Check the book information on the confirmation page.
--  Confirm the delete to remove the books record.
-
-** Search: Find books **
-- Open /books/search or click Search Books.
-- Select a search type, such as title, author or caegory.
-- Enter the keyword and submit the form.
-- The application displays the matching book records.
 
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
