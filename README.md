@@ -82,7 +82,7 @@ COMP3810SEF-G001-Project/
 | File | Description |
 | --- | --- |
 | [server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js) | Startup entry: connects to the MongoDB database, then starts the Express listener (default port 3000). |
-| [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`, OAuth). |
+| [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`). |
 | [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
 | [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
 | [.env.example](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application: MongoDB connection string, session secret, server port. |
@@ -96,8 +96,7 @@ COMP3810SEF-G001-Project/
 - express: ^5.3.0
 - express-session: ^1.18.0
 - mongoose: ^9.11.3
-- passport: ^0.7.0
-- passport-facebook: ^3.0.0
+
 
 
 </details>
@@ -138,7 +137,7 @@ Route layer. Each router below is mounted in `app.js`.
 | [auth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/auth.js) | Sign-up, login, logout and `/auth/me` (`who am I`) routes, with input validation. |
 | [dashboard.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/dashboard.js) | Protected user dashboard at `/dashboard` (requires login via `requireAuth`). |
 | [api.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/api.js) | Unauthenticated RESTful CRUD API for items at `/api/items` (in-memory data, for curl testing). |
-| [oauth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/oauth.js) | Optional Facebook OAuth login (`/auth/facebook/*`); only enabled when `FACEBOOK_APP_ID` / `FACEBOOK_APP_SECRET` are set in `.env`. |
+
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
 
@@ -155,26 +154,20 @@ View layer: EJS templates, grouped by page type.
 <details>
 <summary>📂 auth/ — login & sign-up pages</summary>
 
-- **login.ejs** — Login form (username + password) with error messages on top; shows a Facebook login button only when OAuth is configured; links to the sign-up page.
+- **login.ejs** — Login form (username + password) with error messages on top; links to the sign-up page.
 - **signup.ejs** — Sign-up form (Full Name, Username, Password with format validation), POSTs to `/auth/signup`; links to the login page.
-
+- **logout.ejs** — logout form page
 </details>
 
 <details>
 <summary>📂 books/ — book management pages</summary>
 
-- **list.ejs** — All-books table (title / author / category / publisher / publish year) with Edit & Delete links, plus "Add New Book" and "Search Books" buttons.
-- **create.ejs** — Add-book form: title (required), author (required), category, publisher, publish year (number input).
+- **list.ejs** — All-books table (title / author / category / publisher / publish year) with Edit & Delete links, plus "borrow New Book" and "Search Books" buttons.
+- **create.ejs** — borrow-book form: title (required), author (required), category, publisher, publish year (number input).
 - **edit.ejs** — Edit-book form, pre-filled with the book's current data.
 - **delete.ejs** — Delete confirmation page showing the book's details before removing it.
 - **search.ejs** — Search by title / author / category / publisher / publish year; shows the number of matches.
 
-</details>
-<details>
-<summary>📂 oauth/ — The user information page after successful login</summary>
-
-- **content.ejs** — Show the signed-in user’s profile info (ID and name), provide a logout link for Facebook auth, and a link to return to the regular username/password login page.
-</details>
 <details>
 <summary>📂 partials/ — a dynamic navigation bar and a footer for the library system.
 </summary>
