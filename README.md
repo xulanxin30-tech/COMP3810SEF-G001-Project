@@ -5,6 +5,7 @@
 ![Course](https://img.shields.io/badge/course-COMP3810SEF-blue)
 
 
+
 ## Course Information:
 
 | Field | Value |
@@ -19,33 +20,35 @@
 ## 👁️‍🗨️Project Overview:
 - This project is a Student-Library Book Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.
 - It provides a web-based system for users to register, log in, browse, search book records, manage book information, etc.
-- It provides RESTful API endpoints that can be tested using CURL commmands.
+- It provides RESTful API endpoints that can be tested using CURL commands.
 
 
 ### ➡️Objectives
+
 - Implement core CRUD operations for book records and borrowing management.
 - Develop cookie-session based authentication with Student roles.
 - Deploy the application on an Ubuntu virtual machine and provide RESTful APIs.
 
-
 ### ➡️Scope
-- User authentication (cookie-session) for Student roles. 
+
+- User authentication (cookie-session) for Student roles.
 - Unauthenticated RESTful CRUD APIs for books (for curl testing).
 - Deployment and demonstration on an Ubuntu virtual machine.
 - Complex UI/UX designs or frontend frameworks.
 - Authenticated RESTful APIs (only unauthenticated APIs are provided).
 
-** Student Features **
+**Student Features**
 - Students can create an account by providing their username and password.
-- Registered users can log in with their username and password. Also, cookie-session can maintain their login sesson.
-- Users can log out which cleans the current session.
+- Registered users can log in with their username and password. Also, cookie-session can maintain their login session.
+- Users can log out, which clears the current session.
 - After login, users can open a dashboard displaying their account name and username.
-- Users can browser the book list and view each book's details.
-- Users can search for books by title, author, year, etc.
-- Books pages provide forms to add, edit, delete book records. These functions provides basic online account and book-record management.
+- Users can browse the book list and view each book's details.
+- Users can search for books by title, author, year, category, publish year, publisher.
+- Books pages provide forms to add, edit and delete book records. These functions provide basic online account and book-record management.
 
 
 ### ➡️Business Features Overview:
+
 **Student：**
 1. Login and logout
 2. see all books list
@@ -54,17 +57,17 @@
 5. Submit a reservation when book stock is unavailable
 6. View personal reservation records
 
-
 ## 🧑‍💻Team Members:
 
 | # | Name | Student ID | Github Username | Role | Responsibilities |
 |---|---|---|---|---|---|
-| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead |Scaffolding, routing, session setup, integration, readme,curl test commands |
+| 1 | XU Lanxin | 13744757 | [@xulanxin30-tech](https://github.com/xulanxin30-tech) | Team Lead |Scaffolding, routing, session setup, integration, readme, curl test commands, API routes |
 | 2 | Chi Xuanyi | 13766798 | [@Felix13877](https://github.com/Felix13877) | Developer | Login & sign-up, session, access-control middleware |
-| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | Examine the code logic, README,Mongoose schemas, seed data |
-| 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging, demo PPT |
+| 3 | Cao Fei | 13755803 | [@caofei351-ops](https://github.com/caofei351-ops) | Developer | Examine the code logic, README, Mongoose schemas, seed data |
+| 4 | Fong Chun Hung | 14282138 | [@thevincentfong](https://github.com/thevincentfong) | Documentation | local launch check, zip packaging |
 | 5 | Aw Chun Yin | 14282568 | [@alvin-afk54](https://github.com/alvin-afk54) | QA | EJS templates, login page, CRUD pages & styling |
-| 6 | Wong Ching Fung | 13886514 | [@PW](https://github.com/PW) | Testing | API routes, HTTP methods|
+| 6 | Wong Ching Fung❌ | 13886514 | [@PW](https://github.com/PW) | ❌free rider❌ |None|
+
 
 
 ## 🚀Project file intro:
@@ -92,7 +95,7 @@ COMP3810SEF-G001-Project/
 | [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`, OAuth). |
 | [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
 | [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
-| [.env.example] (https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application; MongoDB connection string, session secret, server port. |
+| [.env.example](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application: MongoDB connection string, session secret, server port. |
 
 <details>
 <summary> 📦 dependencies</summary>
@@ -222,29 +225,51 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 
 
 
+## 🧪Operation guides:
+Start the server first: type npm install, copy .env example to .env and fill in MONGODB_URI, then run npm seed (once) and npm start. 
+When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, replace localhost with the VM's IP address.
+
+### ➡️Use of Login/Logout pages: 
+| Username | Password | Name |
+| s0000001 | sz212345 | Zhang San |
+| s1397832 | Abc22222 | Xiao Ming |
+| s3780234 | Def33333 | Xiao Qiao |
+
+- Login steps:
+- Open http://localhost:3000 and click Login in the top navigation bar (or go to /auth/login).
+- Enter the username and password, then click the Login button.
+- On success you will be redirected to the dashboard (/dashboard), and the navigation bar shows Welcome, <your name> and a Logout link. On failure the page shows the error Invalid username or password.
+
+- Logout steps:
+- Click Logout in the navigation bar, or click the Log out button on the dashboard page. The session cookie is cleared and you are returned to the home page.
+
+### ➡️Use of CRUD web pages:
+| CRUD | What to click | URI |
+| Create | Add New Book button, fill in the form, click Add Book	| /books/new
+| Read |	Books link in the navigation bar; Search Books button to search	/books, | /books/search
+| Update | Edit link in a book's row, change the fields, click Save Changes	| /books/<id>/edit
+| Delete	| Delete link in a book's row, then click Confirm Delete	| /books/<id>/delete
 
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
 | ---- | ---- | ---- | ---- | ---- |
 | Get all items | Read | GET | `http://localhost:3000/api/items` | ```curl http://localhost:3000/api/items``` |
 | Create new item | Create | POST | `http://localhost:3000/api/items` | ```curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'``` |
-| Update item (id=1) | Update | PUT | `http://localhost:3000/api/items/1` | ```curl -X PUT http://localhost:3000/api/items/1 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
-| Delete item (id=1) | Delete | DELETE | `http://localhost:3000/api/items/1` | ```curl -X DELETE http://localhost:3000/api/items/1``` |
+| Update item (id=6affd809c5180db126) | Update | PUT | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X PUT http://localhost:3000/api/items/6affd809c5180db126 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
+| Delete item (id=6affd809c5180db126) | Delete | DELETE | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X DELETE http://localhost:3000/api/items/6affd809c5180db126``` |
 
 
 ### ➡️ Environment Configuration (.env):
 - The '.env' file stores environment settings required by the application.
-- It keeps the important configuration values, such as the MongoDB connection string and session secret.
-- Steup steps:
-- Copy '.env.example' to create a new '.env' file, then type 'cp .env.example .env', then type 'gedit .env'
-- Enter the MongoDB connection string and a session secret.
-- npm start
-
+- It keeps important configuration values, such as the MongoDB connection string and session secret.
+- Setup steps:
+  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
+  - Enter the MongoDB connection string and a session secret.
+  - Run `npm start`.
 
 ### ➡️ Note about 'node_modules':
-- Thank you for your teaching. If you are marking our project, the node_modules folder is not included because you can install the required dependencies.
-- After downloading the project, all required packages can be installed by typing 'npm install'. 
-
+- The node_modules folder is not included because all required dependencies can be installed from package.json.
+- After downloading the project, run `npm install` to install them.
 
 
 ## 💙Acknowledgements
