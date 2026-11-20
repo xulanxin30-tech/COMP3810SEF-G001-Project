@@ -243,8 +243,8 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 | ---- | ---- | ---- | ---- | ---- |
 | Get all items | Read | GET | `http://localhost:3000/api/items` | ```curl http://localhost:3000/api/items``` |
 | Create new item | Create | POST | `http://localhost:3000/api/items` | ```curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'``` |
-| Update item (id=1) | Update | PUT | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X PUT http://localhost:3000/api/items/6affd809c5180db126 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
-| Delete item (id=1) | Delete | DELETE | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X DELETE http://localhost:3000/api/items/6affd809c5180db126``` |
+| Update item (id=6affd809c5180db126) | Update | PUT | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X PUT http://localhost:3000/api/items/6affd809c5180db126 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
+| Delete item (id=6affd809c5180db126) | Delete | DELETE | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X DELETE http://localhost:3000/api/items/6affd809c5180db126``` |
 
 
 ## 💙Acknowledgements
