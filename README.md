@@ -229,6 +229,21 @@ This is a CSS file (static file) that makes login, sign-up and user pages look n
 Start the server first: type npm install, copy .env example to .env and fill in MONGODB_URI, then run npm seed (once) and npm start. 
 When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, replace localhost with the VM's IP address.
 
+**General setup**
+- Download the project from GitHub with `git clone`, then open the folder in Ubuntu Terminal.
+- Install the required packages with `npm install`.
+- Copy `.env.example` to `.env` and set the MongoDB connection string, session secret and port (see Environment Configuration below).
+- Run `npm run seed` once to create test users and books.
+- Start the server with `npm start`.
+- Open `http://localhost:3000` in Firefox; on the Ubuntu VM replace `localhost` with the VM's IP address.
+- Register an account or log in with an existing account, then browse, search and manage book records.
+- Use curl in a second terminal to test the RESTful API endpoints.
+
+**Sign up**
+- Open the homepage and click **Sign up** in the navigation bar.
+- Enter a username (lowercase letters and numbers only) and a password that contains at least one letter and one number.
+- Click **Sign Up**, then log in with the new account; the login session is maintained by cookie-session.
+
 ### ➡️Use of Login/Logout pages: 
 | Username | Password | Name |
 | s0000001 | sz212345 | Zhang San |
