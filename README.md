@@ -250,18 +250,6 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 | Update | Edit link in a book's row, change the fields, click Save Changes	| /books/<id>/edit
 | Delete	| Delete link in a book's row, then click Confirm Delete	| /books/<id>/delete
 
-### ➡️ Environment Configuration (.env):
-- The '.env' file stores environment settings required by the application.
-- It keeps important configuration values, such as the MongoDB connection string and session secret.
-- Setup steps:
-  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
-  - Enter the MongoDB connection string and a session secret.
-  - Run `npm start`.
-
-### ➡️ Note about 'node_modules':
-- The node_modules folder is not included because all required dependencies can be installed from package.json.
-- After downloading the project, run `npm install` to install them.
-
 ### ➡️Use of RESTful CRUD pages:
 | Operation | CRUD | HTTP Method | URI | CURL Command |
 | ---- | ---- | ---- | ---- | ---- |
@@ -276,6 +264,19 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 This project is a group assignment for COMP3810SEF course for academic evaluation only. All code within this project is for educational purposes. Redistribution, commercial usage is prohibited without group members’ permission. 
 
 We would like to thank the lecturer and tutors of COMP3810SEF for project guidance and providing sample project code. We refer to official documentation of Express.js, Mongoose‑MongoDB and EJS for implementation. Some online technical tutorials are referenced for debugging and problem‑solving. All core functionalities are implemented by our group members.
+
+
+### ➡️ Environment Configuration (.env):
+- The '.env' file stores environment settings required by the application.
+- It keeps important configuration values, such as the MongoDB connection string and session secret.
+- Setup steps:
+  - Copy '.env.example' to create a new '.env' file: `cp .env.example .env`, then edit it (e.g. `gedit .env`).
+  - Enter the MongoDB connection string and a session secret.
+  - Run `npm start`.
+
+### ➡️ Note about 'node_modules':
+- The node_modules folder is not included because all required dependencies can be installed from package.json.
+- After downloading the project, run `npm install` to install them.
 
 
 <!-- 
