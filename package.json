@@ -1,7 +1,7 @@
 {
   "name": "comp3810sef-g001-project",
   "version": "1.0.0",
-  "description": "<!-- EDIT ME: One-to-two sentence summary of what this project actually is. --> > _TODO: Replace this line with a short, plain-language description of the project._",
+  "description": "a Student-Library Management System developed using Node.js, Express.js, EJS, MongoDB and Mongoose.",
   "main": "index.js",
   "scripts": {
    "start": "node server.js",
