@@ -1,6 +1,12 @@
-//if you want to test, put package.json and seeddata.js from the views folder, schema.js from models folder into the same folder, and type npm run seed 
+//type npm run seed  to load in MongoDB
+
+
 
 const mongoose = require('mongoose');
+
+
+
+
 
 
 
@@ -18,9 +24,15 @@ const userSchema = new mongoose.Schema({
 
     lowercase: true,
 
-    match: [/^[a-z0-9]+$/, 'wrong! Username can only contain lowercase letters and numbers']
+    minLength: 8,
+
+    maxLength: 8,
+
+    match: [/^[a-z0-9]+$/, 'wrong! Username can only contain lowercase letters and numbers, example: s1397832']
 
   },
+
+
 
   password: {
 
@@ -28,9 +40,15 @@ const userSchema = new mongoose.Schema({
 
     required: true,
 
-    match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/, 'Password must contain at least one letter and one number']
+    minLength: 8,
+
+    maxLength: 8,
+
+    match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/, 'Password must contain at least one letter and one number, example: s1397832']
 
   },
+
+
 
   name: {
 
@@ -44,7 +62,17 @@ const userSchema = new mongoose.Schema({
 
 });
 
+
+
 const User = mongoose.model('User', userSchema);
+
+module.exports = { User };
+
+
+
+
+
+
 
 
 
@@ -76,8 +104,6 @@ const bookSchema = new mongoose.Schema({
 
   type: Number,
 
-  required:true,
-
   default: () => new Date().getFullYear(),
 
   validate: {
@@ -90,7 +116,13 @@ const bookSchema = new mongoose.Schema({
 
     },
 
-    message: props => `The year ${props.value} is invalid. It cannot be later than ${new Date().getFullYear()}.`
+    message: props => {
+
+      const thisYear = new Date().getFullYear();
+
+      return `The year ${props.value} is invalid. It cannot be later than ${thisYear}.`;
+
+    }
 
   }
 
@@ -98,67 +130,147 @@ const bookSchema = new mongoose.Schema({
 
 });
 
+
+
 const Book = mongoose.model('Book', bookSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 // Item is the document stored by the RESTful API (routes/api.js).
 
+
+
 // curl -> Express router -> Mongoose model -> MongoDB collection `items`.
+
+
 
 const itemSchema = new mongoose.Schema(
 
+
+
   {
+
+
 
     name: {
 
+
+
       type: String,
+
+
 
       required: [true, 'Name is required'],
 
+
+
       trim: true
+
+
 
     },
 
+
+
     completed: {
+
+
 
       type: Boolean,
 
+
+
       default: false
+
+
 
     }
 
+
+
   },
 
+
+
   { timestamps: true }
+
+
 
 );
 
 
 
+
+
+
+
 // Keep the original API contract: responses expose `id` (the MongoDB _id as a
+
+
 
 // string) rather than `_id` / `__v`, so existing curl examples still make sense.
 
+
+
 itemSchema.set('toJSON', {
+
+
 
   versionKey: false,
 
+
+
   transform: (doc, ret) => {
+
+
 
     ret.id = doc._id.toString();
 
+
+
     delete ret._id;
+
+
 
     delete ret.__v;
 
+
+
     return ret;
+
+
 
   }
 
+
+
 });
 
+
+
 const Item = mongoose.model('Item', itemSchema);
+
+
+
+
 
 
 
