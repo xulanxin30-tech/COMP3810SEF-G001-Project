@@ -72,7 +72,7 @@ COMP3810SEF-G001-Project/
 ├── config/            # Configuration layer: DB connection, session settings
 ├── middleware/        # Middleware layer: auth & access control, error handling
 ├── models/            # Data layer: Mongoose schemas (User, Book)
-├── routes/            # Route layer: pages, auth, RESTful API, OAuth
+├── routes/            # Route layer: pages, auth, RESTful API
 ├── views/             # View layer: EJS templates (grouped by page type)
 └── public/            # Static assets: CSS stylesheets
 ```
