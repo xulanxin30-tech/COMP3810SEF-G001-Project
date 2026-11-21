@@ -38,12 +38,24 @@ router.post('/signup', requireGuest, async (req, res, next) => {
     return res.redirect(nextUrl)
   } catch (err) {
     if (err.name === 'ValidationError') {
-      const errors = Object.keys(err.errors).map(key => err.errors[key].message)
+      // Replace Mongoose's default technical messages with user-friendly text.
+      // Validation rules still come from the User schema in models/schema.js.
+      const friendly = {
+        username: 'Username must be exactly 8 characters, using lowercase letters and numbers only (e.g. s1397832).',
+        password: 'Password must be exactly 8 characters and include at least one letter and one number (e.g. Abc22222).',
+        name: 'Please enter your name.'
+      }
+      const errors = []
+      Object.keys(err.errors).forEach(key => {
+        const msg = friendly[key] || err.errors[key].message
+        if (!errors.includes(msg)) errors.push(msg)
+      })
       if (wantsJson(req)) return res.status(400).json({ errors })
       return res.status(400).render('auth/signup', { errors, values: { username, name } })
     }
     return next(err)
   }
+
 })
 
 
