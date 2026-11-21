@@ -18,22 +18,6 @@ router.post('/signup', requireGuest, async (req, res, next) => {
   const password = req.body.password || ''
   const nextUrl = req.body.next || '/dashboard'
 
-  const errors = []
-  if (!/^[a-z0-9]+$/.test(username)) {
-    errors.push('Username may only contain lowercase letters and numbers.')
-  }
-  if (name.length < 1 || name.length > 60) {
-    errors.push('Name is required (1-60 characters).')
-  }
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/.test(password)) {
-    errors.push('Password must contain at least one letter and one number.')
-  }
-
-  if (errors.length > 0) {
-    if (wantsJson(req)) return res.status(400).json({ errors })
-    return res.status(400).render('auth/signup', { errors, values: { username, name } })
-  }
-
   try {
     const existing = await User.findOne({ username })
     if (existing) {
@@ -45,7 +29,7 @@ router.post('/signup', requireGuest, async (req, res, next) => {
     // Password is stored as plain text to match the shared User schema and the
     // seeded accounts (see seeddata.js).
     const user = new User({ username, name, password })
-    await user.save()
+    await user.save()   // schema 的 required / match / minLength / maxLength 在这里生效
 
     // T10 - set the session user
     req.session.user = { username: user.username, name: user.name }
@@ -53,9 +37,15 @@ router.post('/signup', requireGuest, async (req, res, next) => {
     if (wantsJson(req)) return res.status(201).json({ user: req.session.user })
     return res.redirect(nextUrl)
   } catch (err) {
+    if (err.name === 'ValidationError') {
+      const errors = Object.keys(err.errors).map(key => err.errors[key].message)
+      if (wantsJson(req)) return res.status(400).json({ errors })
+      return res.status(400).render('auth/signup', { errors, values: { username, name } })
+    }
     return next(err)
   }
 })
+
 
 // T09 - Login page
 router.get('/login', requireGuest, (req, res) => {
