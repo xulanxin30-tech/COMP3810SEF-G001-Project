@@ -2,7 +2,7 @@
 require('dotenv').config(); // 加载 .env 环境变量
 const mongoose = require('mongoose');
 // 修复路径：schema.js 在 models 文件夹下
-const { User, Book } = require('./models/schema');
+const { User, Book, Item } = require('./models/schema');
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
@@ -19,6 +19,7 @@ async function runTest() {
     //Clear data, avoid repetition
     await User.deleteMany({});
     await Book.deleteMany({});
+    await Item.deleteMany({});
     console.log('✅ Old collections cleared');
 
     const stu1 = new User({
@@ -74,6 +75,17 @@ async function runTest() {
     });
     await book3.save();
     console.log(`book:${book3.title} saved`);
+
+    // One deterministic item for the RESTful curl tests. Its `version` is the
+    // stable key used in README.md instead of a machine-generated MongoDB _id,
+    // so every machine / Ubuntu VM testing the API sees the same value.
+    const item1 = new Item({
+      name: 'Sample Task',
+      completed: false,
+      version: 'v1'
+    });
+    await item1.save();
+    console.log(`item:${item1.name} (version ${item1.version}) saved`);
 
     console.log('\n🎉 All seed data inserted!');
   } catch (error) {

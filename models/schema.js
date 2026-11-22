@@ -202,6 +202,24 @@ const itemSchema = new mongoose.Schema(
 
 
 
+    },
+
+    // Stable, human-readable key used by the README curl examples.
+
+    // Unlike the MongoDB _id it is the same on every machine / Ubuntu VM, so
+
+    // the PUT and DELETE commands never depend on a machine-generated ID.
+
+    // Stored in MongoDB by POST /api/items, PUT /api/items/:key and npm run seed.
+
+    version: {
+
+      type: String,
+
+      trim: true,
+
+      default: 'v1'
+
     }
 
 

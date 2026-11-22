@@ -83,7 +83,7 @@ COMP3810SEF-G001-Project/
 | --- | --- |
 | [server.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/server.js) | Startup entry: connects to the MongoDB database, then starts the Express listener (default port 3000). |
 | [app.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/app.js) | Express app setup: EJS view engine, static assets, session, global middleware, and mounting of all routers (`/`, `/auth`, `/api`, `/dashboard`). |
-| [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users and books. |
+| [seeddata.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/seeddata.js) | Seed data script: run `npm run seed` to initialize test users, books and one versioned API item (`version: "v1"`). |
 | [package.json](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/package.json) | Project metadata and dependencies; provides `start` / `dev` / `seed` scripts. |
 | [.env.example](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/.env.example) |The environment settings required by the application: MongoDB connection string, session secret, server port. |
 
@@ -125,7 +125,7 @@ Data layer: Mongoose schemas.
 
 | File | Description |
 | --- | --- |
-| [schema.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/models/schema.js) | Defines two Mongoose models: **User** (username / password / name, with format validation) and **Book** (title / author / category / publisher / publishYear). |
+| [schema.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/models/schema.js) | Defines three Mongoose models: **User** (username / password / name, with format validation), **Book** (title / author / category / publisher / publishYear) and **Item** (name / completed / a stable `version` key used by the curl tests). |
 
 ### ➡️[routes](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/routes):
 
@@ -136,7 +136,7 @@ Route layer. Each router below is mounted in `app.js`.
 | [index.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/index.js) | Homepage, `/health` check, and the book web CRUD routes: list / new / edit / delete / search under `/books`. |
 | [auth.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/auth.js) | Sign-up, login, logout and `/auth/me` (`who am I`) routes, with input validation. |
 | [dashboard.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/dashboard.js) | Protected user dashboard at `/dashboard` (requires login via `requireAuth`). |
-| [api.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/api.js) | Unauthenticated RESTful CRUD API for items at `/api/items` (in-memory data, for curl testing). |
+| [api.js](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/blob/main/routes/api.js) | Unauthenticated RESTful CRUD API for items at `/api/items`, backed by MongoDB. Items can be addressed by a stable `version` key (e.g. `v1`) or by MongoDB `_id`, so the curl examples need no machine-specific ID. |
 
 
 ### ➡️[views](https://github.com/xulanxin30-tech/COMP3810SEF-G001-Project/tree/main/views):
@@ -221,7 +221,7 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 - Download the project from GitHub with `git clone`, then open the folder in Ubuntu Terminal.
 - Install the required packages with `npm install`.
 - Copy `.env.example` to `.env` and set the MongoDB connection string, session secret and port (see Environment Configuration below).
-- Run `npm run seed` once to create test users and books.
+- Run `npm run seed` once to create test users, books and one versioned API item (`v1`). This step is optional for the curl tests — they also work on an empty database.
 - Start the server with `npm start`.
 - Open `http://localhost:3000` in Firefox; on the Ubuntu VM replace `localhost` with the VM's IP address.
 - Register an account or log in with an existing account, then browse, search and manage book records.
@@ -255,12 +255,21 @@ When everything is set, it can run at http://localhost:3000. On the Ubuntu VM, r
 | Delete | Click **Delete** in a book's row, then click **Confirm Delete**. | `/books/<id>/delete` |
 
 ### ➡️Use of RESTful CRUD pages:
+
+All four commands below are **ID-free**: they address the item by its stable `version` key (`v1`) instead of MongoDB's auto-generated `_id`. That `_id` is different on every machine and changes whenever an Ubuntu VM is recreated, which is why the old hard-coded `6affd809c5180db126` example failed for testers.
+
+`version` is a real field stored in the `items` collection, not a URL trick. It is written to MongoDB by `POST /api/items`, by `PUT /api/items/v1` and by `npm run seed`, so the MongoDB side always has it. The API treats any path key that is not a valid 24-character ObjectId as a version key, so `v1` (or `v2`, ...) works directly. POST, PUT and DELETE are all idempotent by version, so the commands can be run in any order and any number of times, even on a fresh empty database — **no seed and no ID lookup required**.
+
+On the Ubuntu VM, replace `localhost` with the VM's IP address.
+
 | Operation | CRUD | HTTP Method | URI | CURL Command |
 | ---- | ---- | ---- | ---- | ---- |
-| Get all items | Read | GET | `http://localhost:3000/api/items` | ```curl http://localhost:3000/api/items``` |
-| Create new item | Create | POST | `http://localhost:3000/api/items` | ```curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false}'``` |
-| Update item (id=6affd809c5180db126) | Update | PUT | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X PUT http://localhost:3000/api/items/6affd809c5180db126 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'``` |
-| Delete item (id=6affd809c5180db126) | Delete | DELETE | `http://localhost:3000/api/items/6affd809c5180db126` | ```curl -X DELETE http://localhost:3000/api/items/6affd809c5180db126``` |
+| Get all items | Read | GET | `http://localhost:3000/api/items` | `curl http://localhost:3000/api/items` |
+| Create / reset item v1 | Create | POST | `http://localhost:3000/api/items` | `curl -X POST http://localhost:3000/api/items -H "Content-Type: application/json" -d '{"name":"New Task","completed":false,"version":"v1"}'` |
+| Update item v1 | Update | PUT | `http://localhost:3000/api/items/v1` | `curl -X PUT http://localhost:3000/api/items/v1 -H "Content-Type: application/json" -d '{"name":"Updated Task","completed":true}'` |
+| Delete item v1 | Delete | DELETE | `http://localhost:3000/api/items/v1` | `curl -X DELETE http://localhost:3000/api/items/v1` |
+
+> **Backward compatible:** `PUT` / `DELETE /api/items/<24-hex-ObjectId>` still work exactly as before. You simply no longer need one to run the tests.
 
 
 ## 💙Acknowledgements
